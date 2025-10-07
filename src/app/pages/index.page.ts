@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 
-import { AnalogWelcome } from './analog-welcome';
+import PracticePage from './practice';
+import HeaderComponent from './header';
 
 @Component({
   selector: 'app-home',
-  imports: [AnalogWelcome],
+  imports: [PracticePage, HeaderComponent],
   template: `
-     <app-analog-welcome/>
+    <header-component></header-component>
+    <practice-page></practice-page>
   `,
 })
-export default class HomeComponent {
-}
+export default class HomeComponent {}
