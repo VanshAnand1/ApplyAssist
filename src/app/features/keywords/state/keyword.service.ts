@@ -6,6 +6,10 @@ export class KeywordService {
   readonly keywords = signal<Keyword[]>([]);
   readonly count = computed(() => this.keywords().length);
 
+  printKeywords() {
+    console.log(this.keywords());
+  }
+
   addKeyword(keyword: Keyword) {
     this.keywords.update((prev) => [...prev, keyword]);
   }
