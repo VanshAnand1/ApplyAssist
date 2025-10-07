@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 
-import { AnalogWelcome } from './analog-welcome';
+import HeaderComponent from './header/header.component';
+import PercentageComponent from './percentage/percentage.component';
 
 @Component({
   selector: 'app-home',
-  imports: [AnalogWelcome],
+  imports: [HeaderComponent, PercentageComponent],
   template: `
-     <app-analog-welcome/>
+    <header-component></header-component>
+    <percentage-component></percentage-component>
   `,
 })
-export default class HomeComponent {
-}
+export default class HomeComponent {}
