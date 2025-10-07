@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'header-component',
-  template: `<div><h1>ApplyAssist</h1></div>`,
+  standalone: true,
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css'],
 })
 export default class HeaderComponent {}

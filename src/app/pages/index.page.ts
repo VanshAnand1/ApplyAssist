@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import PracticePage from './practice';
-import HeaderComponent from './header';
+import HeaderComponent from './header/header.component';
 
 @Component({
   selector: 'app-home',
