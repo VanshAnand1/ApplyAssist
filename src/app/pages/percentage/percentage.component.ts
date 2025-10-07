@@ -24,11 +24,7 @@ export default class PercentageComponent {
     return this.store.getKeywords();
   }
 
-  onSubmit() {
-    let percentInput = document.getElementById(
-      'percentage'
-    ) as HTMLInputElement;
-    this.value = parseInt(percentInput.value);
-    alert(`Submitted value: ${this.value}%`);
+  updateUI() {
+    this.value = this.store.computePercentage();
   }
 }

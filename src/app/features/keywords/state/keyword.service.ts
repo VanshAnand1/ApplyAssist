@@ -42,4 +42,11 @@ export class KeywordService {
   getKeywordsCount() {
     return this.keywords.length;
   }
+
+  computePercentage() {
+    const total = this.getKeywordsCount();
+    if (total === 0) return 0;
+    const completed = this.keywords().filter((k) => k.done).length;
+    return Math.round((completed / total) * 100);
+  }
 }
