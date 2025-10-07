@@ -12,6 +12,6 @@ export default class PercentageComponent {
   value = 0;
 
   onSubmit() {
-    this.value *= 2;
+    alert(`Submitted value: ${this.value}%`);
   }
 }
