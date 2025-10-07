@@ -12,10 +12,13 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     mainFields: ['module'],
   },
-  plugins: [
-    analog(),
-    tailwindcss()
-  ],
+  server: {
+    headers: {
+      'Content-Security-Policy':
+        "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self' data:;",
+    },
+  },
+  plugins: [analog(), tailwindcss()],
   test: {
     globals: true,
     environment: 'jsdom',
