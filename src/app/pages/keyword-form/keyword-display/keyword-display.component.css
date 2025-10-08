@@ -1,0 +1,26 @@
+.keywords-display-header {
+  font-size: 22px;
+  color: black;
+  text-align: left;
+  padding: 10px;
+}
+
+.list-keyword {
+  font-size: 18px;
+  color: black;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.status-toggle-button {
+  color: black;
+  background-color: lightgray;
+  padding: 10px;
+  border-radius: 16px;
+}
+
+.keyword-status {
+  position: relative;
+  bottom: 38px;
+  left: 200px;
+}

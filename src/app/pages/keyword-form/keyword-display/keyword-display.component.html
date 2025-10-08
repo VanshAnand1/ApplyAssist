@@ -1,6 +1,17 @@
+<h2 class="keywords-display-header">Keywords:</h2>
 <ul>
-  <li *ngFor="let keyword of store.keywords(); let i = index">
-    {{ i + 1 }}. {{ keyword.text }}: {{ keyword.done ? "Done" : "Not Done" }}
-    <button (click)="toggleStatus(i)">Toggle</button>
+  <li
+    *ngFor="let keyword of store.keywords(); let i = index"
+    class="list-keyword"
+  >
+    <div>
+      <div class="keyword-text">{{ i + 1 }}. {{ keyword.text }}</div>
+      <div class="keyword-status">
+        {{ keyword.done ? "Done" : "Not Done" }}
+        <button (click)="toggleStatus(i)" class="status-toggle-button">
+          Toggle
+        </button>
+      </div>
+    </div>
   </li>
 </ul>
