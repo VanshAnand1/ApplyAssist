@@ -1,5 +1,6 @@
 <ul>
   <li *ngFor="let keyword of store.keywords(); let i = index">
     {{ i + 1 }}. {{ keyword.text }}: {{ keyword.done ? "Done" : "Not Done" }}
+    <button (click)="toggleStatus(i)">Toggle</button>
   </li>
 </ul>

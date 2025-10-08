@@ -12,4 +12,8 @@ import { KeywordService } from '../../../features/keywords/state/keyword.service
 })
 export default class KeywordDisplayComponent {
   store = inject(KeywordService);
+
+  toggleStatus(index: number) {
+    this.store.toggleKeywordStatus(index);
+  }
 }

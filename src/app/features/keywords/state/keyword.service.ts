@@ -49,4 +49,8 @@ export class KeywordService {
     const completed = this.keywords().filter((k) => k.done).length;
     return Math.round((completed / total) * 100);
   }
+
+  toggleKeywordStatus(index: number) {
+    this.keywords()[index].done = !this.keywords()[index].done;
+  }
 }
