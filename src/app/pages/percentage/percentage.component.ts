@@ -11,20 +11,5 @@ import { KeywordService } from '../../features/keywords/state/keyword.service';
   styleUrls: ['./percentage.component.css'],
 })
 export default class PercentageComponent {
-  value: number;
-  complete: number;
   store = inject(KeywordService);
-
-  constructor() {
-    this.value = 0;
-    this.complete = 0;
-  }
-
-  getKeywords() {
-    return this.store.getKeywords();
-  }
-
-  ngOnInit() {
-    this.value = this.store.computePercentage();
-  }
 }
