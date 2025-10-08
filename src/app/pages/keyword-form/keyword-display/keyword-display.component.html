@@ -1,5 +1,5 @@
 <ul>
-  <li *ngFor="let keyword of store.keywords()">
-    {{ keyword.text }}
+  <li *ngFor="let keyword of store.keywords(); let i = index">
+    {{ i + 1 }}. {{ keyword.text }}
   </li>
 </ul>
