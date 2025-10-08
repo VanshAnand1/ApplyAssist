@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { inject } from '@angular/core';
+import { KeywordService } from '../../features/keywords/state/keyword.service';
 
 @Component({
   selector: 'percentage-component',
@@ -9,9 +11,5 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./percentage.component.css'],
 })
 export default class PercentageComponent {
-  value = 0;
-
-  onSubmit() {
-    this.value *= 2;
-  }
+  store = inject(KeywordService);
 }

@@ -1,11 +1,4 @@
-<form class="percentage-container" (ngSubmit)="onSubmit()">
-  <input
-    type="number"
-    id="percentage"
-    placeholder="Enter percentage"
-    [(ngModel)]="value"
-    name="value"
-  />
-  <button>Submit</button>
-  <p>{{ value }}</p>
-</form>
+<div class="percentage-container">
+  <h1>Percentage:</h1>
+  <p>{{ store.computePercentage() }}</p>
+</div>

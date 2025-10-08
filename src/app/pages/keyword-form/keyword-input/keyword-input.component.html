@@ -1,0 +1,14 @@
+<h1 class="header-title">Keyword Input</h1>
+<form (ngSubmit)="onAddKeyword()">
+  <div class="form-group">
+    <label for="keyword">Enter Keyword:</label>
+    <input
+      type="text"
+      id="keyword"
+      name="keyword"
+      [(ngModel)]="keywordText"
+      required
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Add Keyword</button>
+</form>
