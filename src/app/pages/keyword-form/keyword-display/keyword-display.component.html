@@ -1,3 +1,5 @@
 <ul>
-  <li *ngFor="let keyword of [1, 2, 3, 4]">{{ keyword }}</li>
+  <li *ngFor="let keyword of store.keywords()">
+    {{ keyword.text }}
+  </li>
 </ul>
