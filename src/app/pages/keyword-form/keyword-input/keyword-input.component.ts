@@ -21,8 +21,6 @@ export default class KeywordInputComponent {
 
   onAddKeyword() {
     this.store.addKeyword({ text: this.keywordText, done: false });
-    alert(`Keyword added: ${this.keywordText}`);
     this.keywordText = '';
-    this.store.printKeywords();
   }
 }

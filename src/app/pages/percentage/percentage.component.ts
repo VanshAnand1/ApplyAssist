@@ -24,7 +24,7 @@ export default class PercentageComponent {
     return this.store.getKeywords();
   }
 
-  updateUI() {
+  ngOnInit() {
     this.value = this.store.computePercentage();
   }
 }
