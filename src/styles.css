@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+:root {
+  --header-size: 22px;
+  --text-size: 16px;
+  --button-background-color: #3d314a;
+  --button-text-color: #ab8476;
+  --text-color: #000000;
+  --background-color: #d4c2fc;
+
+  --tea-green: #dcedb9;
+}
+
 html,
 body {
   display: block;
