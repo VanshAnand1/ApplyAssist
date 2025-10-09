@@ -4,7 +4,7 @@ import { Keyword } from '../model/keyword.model';
 @Injectable({ providedIn: 'root' })
 export class KeywordService {
   readonly keywords = signal<Keyword[]>([]);
-  readonly count = computed(() => this.keywords().length);
+  readonly count = computed(() => this.keywords().length).toString();
 
   getKeywords() {
     return this.keywords;
