@@ -4,17 +4,23 @@ import { StorageService } from '../../storage/storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class KeywordService {
-  windowID: string = '0';
+  private activeWindowID = signal<string>('0');
+  storage = inject(StorageService);
 
-  constructor(private storage: StorageService) {}
-  keywords = this.storage.keywordsFor(this.windowID);
+  constructor() {
+    this.storage.createNewWindow('0', 'blue');
+  }
+
+  getActiveWindowID() {
+    return this.activeWindowID();
+  }
+
+  keywords = computed(() =>
+    this.storage.keywordsFor(this.getActiveWindowID())
+  )();
 
   getKeywords() {
     return this.keywords;
-  }
-
-  updateWindowID(newWindowID: string) {
-    this.windowID = newWindowID;
   }
 
   printKeywords() {
@@ -22,15 +28,15 @@ export class KeywordService {
   }
 
   addKeyword(keyword: Keyword) {
-    this.storage.insertKeyword(this.windowID, keyword);
+    this.storage.insertKeyword(this.getActiveWindowID(), keyword);
   }
 
   removeKeyword(keyword: Keyword) {
-    this.storage.deleteKeyword(this.windowID, keyword);
+    this.storage.deleteKeyword(this.getActiveWindowID(), keyword);
   }
 
   clearKeywords() {
-    this.storage.clearAllKeywords(this.windowID);
+    this.storage.clearAllKeywords(this.getActiveWindowID());
   }
 
   getKeywordsCount() {
