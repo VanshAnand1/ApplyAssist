@@ -7,14 +7,14 @@
     *ngFor="let keyword of store.keywords(); let i = index"
     class="list-keyword"
   >
-    <div>
+    <div class="container">
       <div class="keyword-text">{{ i + 1 }}. {{ keyword.text }}</div>
-      <div class="keyword-status">
+      <div class="keyword-options">
         {{ keyword.done ? "Done" : "Not Done" }}
         <button (click)="toggleStatus(keyword)" class="status-toggle-button">
           Toggle
         </button>
-        <button (click)="removeKeyword(keyword)" class="status-toggle-button">
+        <button (click)="removeKeyword(keyword)" class="delete-button">
           Delete
         </button>
       </div>
