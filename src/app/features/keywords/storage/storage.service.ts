@@ -1,3 +1,5 @@
+import { Injectable } from '@angular/core';
+
 type Keyword = { text: string; done: boolean; id: string };
 type StorageSchema = {
   windows: {
@@ -9,10 +11,10 @@ type StorageSchema = {
   };
 };
 
+@Injectable({ providedIn: 'root' })
 export class StorageService {
   async getWindows() {
-    let defaults = { windows: {} };
-    let windows = await chrome.storage.local.get(defaults);
+    const { windows = {} } = await chrome.storage.local.get({ windows: {} });
     return windows;
   }
 
@@ -39,6 +41,13 @@ export class StorageService {
     const { [keyword.id]: _gone, ...rest } = window.keywords;
     await chrome.storage.local.set({
       windows: { ...windows, [windowID]: { ...window, keywords: rest } },
+    });
+  }
+
+  async clearKeywords(windowID: string) {
+    const windows = await this.getWindows();
+    await chrome.storage.local.set({
+      windows: { ...windows, [windowID]: { keywords: {} } },
     });
   }
 }

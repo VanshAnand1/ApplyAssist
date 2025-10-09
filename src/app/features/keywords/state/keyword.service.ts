@@ -1,10 +1,13 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, inject, signal, computed } from '@angular/core';
 import { Keyword } from '../model/keyword.model';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class KeywordService {
   readonly keywords = signal<Keyword[]>([]);
   readonly count = computed(() => this.keywords().length).toString();
+  id: number = 0;
+  storage = inject(StorageService);
 
   getKeywords() {
     return this.keywords;
@@ -16,19 +19,16 @@ export class KeywordService {
 
   addKeyword(keyword: Keyword) {
     this.keywords.update((prev) => [...prev, keyword]);
+    this.storage.insertKeyword('0', keyword);
   }
 
-  getIndex(keyword: Keyword) {
-    for (let i = 0; i < this.keywords().length; i++) {
-      if (this.keywords()[i] === keyword) {
-        return i;
-      }
-    }
-    return -1;
+  getId(keyword: Keyword) {
+    return keyword.id;
   }
 
   removeKeyword(keyword: Keyword) {
     this.keywords.update((prev) => prev.filter((k) => k !== keyword));
+    this.storage.deleteKeyword('0', keyword);
   }
 
   removeAllInstances(keyword: Keyword) {
@@ -37,6 +37,7 @@ export class KeywordService {
 
   clearKeywords() {
     this.keywords.update(() => []);
+    this.storage.clearKeywords('0');
   }
 
   getKeywordsCount() {

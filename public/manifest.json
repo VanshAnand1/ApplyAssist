@@ -7,5 +7,6 @@
     "default_popup": "index.html",
     "default_width": 400,
     "default_height": 600
-  }
+  },
+  "permissions": ["storage"]
 }

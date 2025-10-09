@@ -20,7 +20,11 @@ export default class KeywordInputComponent {
   }
 
   onAddKeyword() {
-    this.store.addKeyword({ text: this.keywordText, done: false });
+    this.store.addKeyword({
+      text: this.keywordText,
+      done: false,
+      id: Date.now().toString(),
+    });
     this.keywordText = '';
   }
 }
