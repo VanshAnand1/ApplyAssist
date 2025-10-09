@@ -1,4 +1,7 @@
 <h2 class="keywords-display-header">Keywords:</h2>
+<button (click)="clearAllKeywords()" class="status-toggle-button">
+  Clear All
+</button>
 <ul>
   <li
     *ngFor="let keyword of store.keywords(); let i = index"

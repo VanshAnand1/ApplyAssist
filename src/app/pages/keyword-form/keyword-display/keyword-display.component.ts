@@ -21,4 +21,8 @@ export default class KeywordDisplayComponent {
   removeKeyword(keyword: Keyword) {
     this.store.removeKeyword(keyword);
   }
+
+  clearAllKeywords() {
+    this.store.clearKeywords();
+  }
 }
