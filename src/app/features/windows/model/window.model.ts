@@ -20,6 +20,15 @@ export class Window implements WindowSchema {
   keywordsOrder: Array<string> = [];
   KeywordService = inject(KeywordService);
 
+  constructor(color: string, name?: string) {
+    this.name = name;
+    if (this.allowedColors.includes(color)) {
+      this.color = color;
+    } else {
+      this.color = 'blue';
+    }
+  }
+
   changeWindowColor(color: string) {
     if (this.allowedColors.includes(color)) {
       this.color = color;

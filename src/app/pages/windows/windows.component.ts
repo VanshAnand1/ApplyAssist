@@ -1,19 +1,20 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { inject } from '@angular/core';
 import { WindowService } from '../../features/windows/state/window.service';
+import { StorageService } from 'src/app/features/storage/storage.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'windows-component',
   standalone: true,
-  imports: [FormsModule],
+  imports: [CommonModule],
   templateUrl: './windows.component.html',
   styleUrls: ['./windows.component.css'],
 })
 export default class WindowsComponent {
-  WindowService = inject(WindowService);
+  store = inject(WindowService);
 
   createNewWindow() {
-    this.WindowService.createNewWindow('blue', 'nameofwindow');
+    this.store.createNewWindow('blue', 'nameofwindow');
   }
 }

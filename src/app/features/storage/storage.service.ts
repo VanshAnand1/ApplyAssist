@@ -145,4 +145,11 @@ export class StorageService {
         .map((id) => window.keywords[id])
         .filter((keyword): keyword is Keyword => keyword !== undefined);
     });
+  windows = computed(() => {
+    const root = this.rootSignal();
+    const order = root.windowOrder ?? [];
+    return order
+      .map((id) => root.windows[id])
+      .filter((w): w is WindowSchema => w !== undefined);
+  });
 }
