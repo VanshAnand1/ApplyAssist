@@ -1,12 +1,9 @@
 @import "tailwindcss";
 
-/* You can add global styles to this file, and also import other style files */
 html,
 body {
   display: block;
-  min-width: 400px;
-  min-height: 600px;
-  width: 400px;
+  width: 500px;
   height: 600px;
   margin: 0;
   padding: 0;
