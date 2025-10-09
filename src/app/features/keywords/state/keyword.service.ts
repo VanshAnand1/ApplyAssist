@@ -4,13 +4,17 @@ import { StorageService } from '../storage/storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class KeywordService {
-  readonly keywords = signal<Keyword[]>([]);
-  readonly count = computed(() => this.keywords().length).toString();
-  id: number = 0;
-  storage = inject(StorageService);
+  windowID: string = '0';
+
+  constructor(private storage: StorageService) {}
+  keywords = this.storage.keywordsFor(this.windowID);
 
   getKeywords() {
     return this.keywords;
+  }
+
+  updateWindowID(newWindowID: string) {
+    this.windowID = newWindowID;
   }
 
   printKeywords() {
@@ -18,40 +22,29 @@ export class KeywordService {
   }
 
   addKeyword(keyword: Keyword) {
-    this.keywords.update((prev) => [...prev, keyword]);
-    this.storage.insertKeyword('0', keyword);
-  }
-
-  getId(keyword: Keyword) {
-    return keyword.id;
+    this.storage.insertKeyword(this.windowID, keyword);
   }
 
   removeKeyword(keyword: Keyword) {
-    this.keywords.update((prev) => prev.filter((k) => k !== keyword));
-    this.storage.deleteKeyword('0', keyword);
-  }
-
-  removeAllInstances(keyword: Keyword) {
-    this.keywords.update((prev) => prev.filter((k) => k !== keyword));
+    this.storage.deleteKeyword(this.windowID, keyword);
   }
 
   clearKeywords() {
-    this.keywords.update(() => []);
-    this.storage.clearKeywords('0');
+    this.storage.clearKeywords(this.windowID);
   }
 
   getKeywordsCount() {
     return this.keywords.length;
   }
 
-  computePercentage() {
-    const total = this.getKeywordsCount();
-    if (total === 0) return 0;
-    const completed = this.keywords().filter((k) => k.done).length;
-    return Math.round((completed / total) * 100);
+  toggleKeywordStatus(keyword: Keyword) {
+    this.storage.toggleKeywordStatus(this.windowID, keyword);
   }
 
-  toggleKeywordStatus(index: number) {
-    this.keywords()[index].done = !this.keywords()[index].done;
-  }
+  count = computed(() => this.keywords().length);
+  percentDone = computed(() => {
+    const arr = this.keywords();
+    const done = arr.filter((k) => k.done).length;
+    return arr.length ? Math.round((done / arr.length) * 100) : 0;
+  });
 }

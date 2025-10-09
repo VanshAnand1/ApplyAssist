@@ -8,8 +8,11 @@
       <div class="keyword-text">{{ i + 1 }}. {{ keyword.text }}</div>
       <div class="keyword-status">
         {{ keyword.done ? "Done" : "Not Done" }}
-        <button (click)="toggleStatus(i)" class="status-toggle-button">
+        <button (click)="toggleStatus(keyword)" class="status-toggle-button">
           Toggle
+        </button>
+        <button (click)="removeKeyword(keyword)" class="status-toggle-button">
+          Delete
         </button>
       </div>
     </div>

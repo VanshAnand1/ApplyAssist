@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { inject } from '@angular/core';
 import { KeywordService } from '../../../features/keywords/state/keyword.service';
+import { Keyword } from 'src/app/features/keywords/model/keyword.model';
 
 @Component({
   selector: 'keyword-display',
@@ -13,7 +14,11 @@ import { KeywordService } from '../../../features/keywords/state/keyword.service
 export default class KeywordDisplayComponent {
   store = inject(KeywordService);
 
-  toggleStatus(index: number) {
-    this.store.toggleKeywordStatus(index);
+  toggleStatus(keyword: Keyword) {
+    this.store.toggleKeywordStatus(keyword);
+  }
+
+  removeKeyword(keyword: Keyword) {
+    this.store.removeKeyword(keyword);
   }
 }
