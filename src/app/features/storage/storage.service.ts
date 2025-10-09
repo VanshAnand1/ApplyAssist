@@ -135,6 +135,48 @@ export class StorageService {
     await this.setRoot(updatedRoot);
   }
 
+  async deleteWindow(windowID: string) {
+    const root = await this.getRoot();
+    const { [windowID]: _omitted, ...remainingWindows } = root.windows;
+    const newWindowOrder = root.windowOrder.filter((id) => id !== windowID);
+
+    const updatedRoot: Root = {
+      ...root,
+      windows: remainingWindows,
+      windowOrder: newWindowOrder,
+    };
+
+    await this.setRoot(updatedRoot);
+  }
+
+  async updateWindowColor(windowID: string, color: string) {
+    const root = await this.getRoot();
+    const window = root.windows[windowID];
+    if (!window) return;
+
+    const updatedWindow: WindowSchema = { ...window, color };
+    const updatedRoot: Root = {
+      ...root,
+      windows: { ...root.windows, [windowID]: updatedWindow },
+    };
+
+    await this.setRoot(updatedRoot);
+  }
+
+  async updateWindowName(windowID: string, name: string) {
+    const root = await this.getRoot();
+    const window = root.windows[windowID];
+    if (!window) return;
+
+    const updatedWindow: WindowSchema = { ...window, name };
+    const updatedRoot: Root = {
+      ...root,
+      windows: { ...root.windows, [windowID]: updatedWindow },
+    };
+
+    await this.setRoot(updatedRoot);
+  }
+
   keywordsFor = (windowId: string) =>
     computed(() => {
       const root = this.rootSignal();

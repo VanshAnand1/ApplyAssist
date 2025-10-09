@@ -1,13 +1,16 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { WindowSchema, Window } from '../model/window.model';
 import { StorageService } from '../../storage/storage.service';
+import { KeywordService } from '../../keywords/state/keyword.service';
+import { Keyword } from '../../keywords/model/keyword.model';
 
 @Injectable({ providedIn: 'root' })
 export class WindowService {
   windowLimit: number = 5;
   storage = inject(StorageService);
+  keywordService = inject(KeywordService);
 
-  windows = computed(() => this.storage.windows())();
+  windows = computed(() => this.storage.windows());
 
   createNewWindow(color: string, name?: string) {
     if (this.reachedWindowLimit()) {
@@ -15,39 +18,25 @@ export class WindowService {
       return;
     }
     this.storage.createNewWindow(Date.now().toString(), color, name);
-    const newWindow = new Window(color, name);
-    this.windows.push(newWindow);
+  }
+
+  selectWindow(windowID: string) {
+    this.keywordService.setActiveWindowID(windowID);
   }
 
   removeWindow(windowID: string) {
-    // this.windows.filter((window: WindowSchema) => windowID === window.id);
+    this.storage.deleteWindow(windowID);
   }
 
-  // changeWindowColor(windowID: string, color: string) {
-  //   for (let window of this.windows) {
-  //     if (window.id == windowID) {
-  //       window.changeWindowColor(color);
-  //       return;
-  //     }
-  //   }
-  //   console.log('no window found with that id');
-  // }
+  changeWindowColor(windowID: string, color: string) {
+    this.storage.updateWindowColor(windowID, color);
+  }
 
-  // changeWindowName(windowID: string, name: string) {
-  //   for (let window of this.windows) {
-  //     if (window.id == windowID) {
-  //       window.changeWindowName(name);
-  //       // this.storage.updateWindowName(windowID, name);
-  //       return;
-  //     }
-  //   }
-  //   console.log('no window found with that id');
-  // }
+  changeWindowName(windowID: string, name: string) {
+    this.storage.updateWindowName(windowID, name);
+  }
 
   reachedWindowLimit() {
-    if (this.windows.length >= this.windowLimit) {
-      return true;
-    }
-    return false;
+    return this.windows.length >= this.windowLimit;
   }
 }

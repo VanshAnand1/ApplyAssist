@@ -15,6 +15,10 @@ export class KeywordService {
     return this.activeWindowID();
   }
 
+  setActiveWindowID(windowID: string) {
+    this.activeWindowID.set(windowID);
+  }
+
   keywords = computed(() =>
     this.storage.keywordsFor(this.getActiveWindowID())
   )();

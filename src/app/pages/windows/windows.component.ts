@@ -12,9 +12,13 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./windows.component.css'],
 })
 export default class WindowsComponent {
-  store = inject(WindowService);
+  windowService = inject(WindowService);
 
   createNewWindow() {
-    this.store.createNewWindow('blue', 'nameofwindow');
+    this.windowService.createNewWindow('blue', 'nameofwindow');
+  }
+
+  onWindowClick(windowID: string) {
+    this.windowService.selectWindow(windowID);
   }
 }
