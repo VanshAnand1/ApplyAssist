@@ -1,6 +1,6 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { Keyword } from '../model/keyword.model';
-import { StorageService } from '../storage/storage.service';
+import { StorageService } from '../../storage/storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class KeywordService {
@@ -30,7 +30,7 @@ export class KeywordService {
   }
 
   clearKeywords() {
-    this.storage.clearKeywords(this.windowID);
+    this.storage.clearAllKeywords(this.windowID);
   }
 
   getKeywordsCount() {
@@ -38,7 +38,7 @@ export class KeywordService {
   }
 
   toggleKeywordStatus(keyword: Keyword) {
-    this.storage.toggleKeywordStatus(this.windowID, keyword);
+    // this.storage.toggleKeywordStatus(this.windowID, keyword);
   }
 
   count = computed(() => this.keywords().length);
