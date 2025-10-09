@@ -12,17 +12,17 @@ import { Keyword } from 'src/app/features/keywords/model/keyword.model';
   styleUrls: ['./keyword-display.component.css'],
 })
 export default class KeywordDisplayComponent {
-  store = inject(KeywordService);
+  keywordService = inject(KeywordService);
 
-  toggleStatus(keyword: Keyword) {
-    this.store.toggleKeywordStatus(keyword);
+  toggleKeyword(keyword: Keyword) {
+    this.keywordService.toggleKeywordStatus(keyword);
   }
 
   removeKeyword(keyword: Keyword) {
-    this.store.removeKeyword(keyword);
+    this.keywordService.removeKeyword(keyword);
   }
 
   clearAllKeywords() {
-    this.store.clearKeywords();
+    this.keywordService.clearKeywords();
   }
 }

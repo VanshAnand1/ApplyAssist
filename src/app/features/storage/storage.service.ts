@@ -135,6 +135,30 @@ export class StorageService {
     await this.setRoot(updatedRoot);
   }
 
+  async toggleKeywordStatus(windowID: string, keywordID: string) {
+    const root = this.rootSignal();
+    const window = root.windows[windowID];
+    if (!window) return;
+
+    const keyword = window.keywords[keywordID];
+    if (!keyword) return;
+
+    const updatedKeyword: Keyword = { ...keyword, done: !keyword.done };
+    const updatedKeywords = { ...window.keywords, [keywordID]: updatedKeyword };
+
+    const updatedWindow: WindowSchema = {
+      ...window,
+      keywords: updatedKeywords,
+    };
+
+    const updatedRoot: Root = {
+      ...root,
+      windows: { ...root.windows, [windowID]: updatedWindow },
+    };
+
+    await this.setRoot(updatedRoot);
+  }
+
   async deleteWindow(windowID: string) {
     const root = await this.getRoot();
     const { [windowID]: _omitted, ...remainingWindows } = root.windows;

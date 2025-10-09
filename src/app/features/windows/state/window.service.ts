@@ -11,6 +11,7 @@ export class WindowService {
   keywordService = inject(KeywordService);
 
   windows = computed(() => this.storage.windows());
+  activeWindowID = computed(() => this.keywordService.getActiveWindowID());
 
   createNewWindow(color: string, name?: string) {
     if (this.reachedWindowLimit()) {

@@ -7,6 +7,7 @@ export class KeywordService {
   private activeWindowID = signal<string>('0');
   storage = inject(StorageService);
 
+  keywords = computed(() => this.storage.keywordsFor(this.activeWindowID())());
   constructor() {
     this.storage.createNewWindow('0', 'blue');
   }
@@ -18,10 +19,6 @@ export class KeywordService {
   setActiveWindowID(windowID: string) {
     this.activeWindowID.set(windowID);
   }
-
-  keywords = computed(() =>
-    this.storage.keywordsFor(this.getActiveWindowID())
-  )();
 
   getKeywords() {
     return this.keywords;
@@ -48,7 +45,7 @@ export class KeywordService {
   }
 
   toggleKeywordStatus(keyword: Keyword) {
-    // this.storage.toggleKeywordStatus(this.windowID, keyword);
+    this.storage.toggleKeywordStatus(this.getActiveWindowID(), keyword.id);
   }
 
   count = computed(() => this.keywords().length);

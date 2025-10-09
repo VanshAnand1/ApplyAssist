@@ -3,10 +3,12 @@
   <li
     *ngFor="let window of windowService.windows(); let i = index"
     class="list-keyword"
-    (click)="onWindowClick(window.id)"
   >
     <div class="container">
       <div class="keyword-text">{{ i + 1 }}. {{ window.name }}</div>
+      <button (click)="onWindowClick(window.id)">
+        {{ window.id === windowService.activeWindowID() ? "Active" : "Select" }}
+      </button>
     </div>
   </li>
 </ul>
