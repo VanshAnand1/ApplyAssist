@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { inject } from '@angular/core';
-import { KeywordService } from '../../features/keywords/state/keyword.service';
+import { KeywordService } from '../../../features/keywords/state/keyword.service';
 
 @Component({
   selector: 'percentage-component',

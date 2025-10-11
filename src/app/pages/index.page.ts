@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import HeaderComponent from './header/header.component';
-import PercentageComponent from './percentage/percentage.component';
+import PercentageComponent from './keyword-form/percentage/percentage.component';
 import KeywordInputComponent from './keyword-form/keyword-input/keyword-input.component';
 import KeywordDisplayComponent from './keyword-form/keyword-display/keyword-display.component';
 import WindowsComponent from './windows/windows.component';
