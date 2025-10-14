@@ -17,9 +17,7 @@
     >
       <div class="container">
         <button (click)="onWindowClick(window.id)">
-          {{
-            window.id === windowService.activeWindowID() ? "Active" : "Select"
-          }}
+          {{ window.name ? window.name : "unnamed window" }}
         </button>
         <button (click)="deleteWindow(window.id)">Delete</button>
       </div>
