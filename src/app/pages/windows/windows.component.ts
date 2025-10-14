@@ -21,4 +21,8 @@ export default class WindowsComponent {
   onWindowClick(windowID: string) {
     this.windowService.selectWindow(windowID);
   }
+
+  deleteWindow(windowID: string) {
+    this.windowService.removeWindow(windowID);
+  }
 }
