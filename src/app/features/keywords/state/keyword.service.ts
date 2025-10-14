@@ -1,10 +1,24 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, inject, signal, computed } from '@angular/core';
 import { Keyword } from '../model/keyword.model';
+import { StorageService } from '../../storage/storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class KeywordService {
-  readonly keywords = signal<Keyword[]>([]);
-  readonly count = computed(() => this.keywords().length);
+  private activeWindowID = signal<string>('0');
+  storage = inject(StorageService);
+
+  keywords = computed(() => this.storage.keywordsFor(this.activeWindowID())());
+  constructor() {
+    this.storage.createNewWindow('0', 'blue');
+  }
+
+  getActiveWindowID() {
+    return this.activeWindowID();
+  }
+
+  setActiveWindowID(windowID: string) {
+    this.activeWindowID.set(windowID);
+  }
 
   getKeywords() {
     return this.keywords;
@@ -15,42 +29,29 @@ export class KeywordService {
   }
 
   addKeyword(keyword: Keyword) {
-    this.keywords.update((prev) => [...prev, keyword]);
-  }
-
-  getIndex(keyword: Keyword) {
-    for (let i = 0; i < this.keywords().length; i++) {
-      if (this.keywords()[i] === keyword) {
-        return i;
-      }
-    }
-    return -1;
+    this.storage.insertKeyword(this.getActiveWindowID(), keyword);
   }
 
   removeKeyword(keyword: Keyword) {
-    this.keywords.update((prev) => prev.filter((k) => k !== keyword));
-  }
-
-  removeAllInstances(keyword: Keyword) {
-    this.keywords.update((prev) => prev.filter((k) => k !== keyword));
+    this.storage.deleteKeyword(this.getActiveWindowID(), keyword);
   }
 
   clearKeywords() {
-    this.keywords.update(() => []);
+    this.storage.clearAllKeywords(this.getActiveWindowID());
   }
 
   getKeywordsCount() {
     return this.keywords.length;
   }
 
-  computePercentage() {
-    const total = this.getKeywordsCount();
-    if (total === 0) return 0;
-    const completed = this.keywords().filter((k) => k.done).length;
-    return Math.round((completed / total) * 100);
+  toggleKeywordStatus(keyword: Keyword) {
+    this.storage.toggleKeywordStatus(this.getActiveWindowID(), keyword.id);
   }
 
-  toggleKeywordStatus(index: number) {
-    this.keywords()[index].done = !this.keywords()[index].done;
-  }
+  count = computed(() => this.keywords().length);
+  percentDone = computed(() => {
+    const arr = this.keywords();
+    const done = arr.filter((k) => k.done).length;
+    return arr.length ? Math.round((done / arr.length) * 100) : 0;
+  });
 }

@@ -1,15 +1,22 @@
 <h2 class="keywords-display-header">Keywords:</h2>
+<button (click)="clearAllKeywords()" class="status-toggle-button">
+  Clear All
+</button>
 <ul>
   <li
-    *ngFor="let keyword of store.keywords(); let i = index"
+    *ngFor="let keyword of keywordService.keywords(); let i = index"
     class="list-keyword"
+    [class.done]="keyword.done"
   >
-    <div>
+    <div class="container">
       <div class="keyword-text">{{ i + 1 }}. {{ keyword.text }}</div>
-      <div class="keyword-status">
+      <div class="keyword-options">
         {{ keyword.done ? "Done" : "Not Done" }}
-        <button (click)="toggleStatus(i)" class="status-toggle-button">
+        <button (click)="toggleKeyword(keyword)" class="status-toggle-button">
           Toggle
+        </button>
+        <button (click)="removeKeyword(keyword)" class="delete-button">
+          Delete
         </button>
       </div>
     </div>

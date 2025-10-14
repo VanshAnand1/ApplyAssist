@@ -1,6 +1,7 @@
 .percentage-container {
+  display: flex;
   width: 200px;
-  background-color: lightblue;
+  background-color: var(--background-color);
   border-radius: 16px;
   justify-content: center;
   align-items: center;
