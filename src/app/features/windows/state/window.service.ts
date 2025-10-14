@@ -26,7 +26,14 @@ export class WindowService {
   }
 
   getBackgroundColor(windowID: string) {
-    return this.storage.getBackgroundColor(windowID);
+    return this.colorMap(this.storage.getBackgroundColor(windowID));
+  }
+
+  colorMap(color: string | undefined) {
+    if (color === 'gray') return '#949194';
+    if (color === 'red') return '#eb5234';
+    if (color === 'purple') return '#de34eb';
+    return '#34d8eb';
   }
 
   removeWindow(windowID: string) {

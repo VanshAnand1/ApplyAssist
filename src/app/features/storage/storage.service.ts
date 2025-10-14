@@ -201,13 +201,11 @@ export class StorageService {
     await this.setRoot(updatedRoot);
   }
 
-  async getBackgroundColor(windowID: string) {
-    const root = await this.getRoot();
+  getBackgroundColor(windowID: string): string | undefined {
+    const root = this.rootSignal();
     const window = root.windows[windowID];
-    if (!window) return;
-
-    const color = window['color'];
-    return color;
+    if (!window) return undefined;
+    return window.color;
   }
 
   keywordsFor = (windowId: string) =>

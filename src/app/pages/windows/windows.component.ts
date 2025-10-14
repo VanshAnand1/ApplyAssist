@@ -15,7 +15,7 @@ export default class WindowsComponent {
   windowService = inject(WindowService);
 
   createNewWindow() {
-    this.windowService.createNewWindow('blue', 'nameofwindow');
+    this.windowService.createNewWindow('blue', '');
   }
 
   onWindowClick(windowID: string) {

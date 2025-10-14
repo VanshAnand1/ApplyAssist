@@ -9,7 +9,7 @@ export class KeywordService {
 
   keywords = computed(() => this.storage.keywordsFor(this.activeWindowID())());
   constructor() {
-    this.storage.createNewWindow('0', 'blue');
+    this.storage.createNewWindow('0', 'gray');
   }
 
   getActiveWindowID() {
