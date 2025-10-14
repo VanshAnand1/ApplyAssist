@@ -14,7 +14,14 @@ export class Window implements WindowSchema {
   name?: string;
   color: string = 'blue';
   id: string = Date.now().toString();
-  allowedColors: Array<string> = ['blue', 'red', 'yellow'];
+  allowedColors: Array<string> = [
+    'blue',
+    'red',
+    'yellow',
+    'purple',
+    'pink',
+    'green',
+  ];
 
   keywords: { [key: string]: Keyword } = {};
   keywordsOrder: Array<string> = [];
