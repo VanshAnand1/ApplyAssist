@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 3px;
+}
+
+.new-window-button {
+  background-color: blue;
+}
+
+.window {
+  padding: 1px;
+  background-color: aqua;
+}
+
+.active-window {
+  font-size: 30px;
+}

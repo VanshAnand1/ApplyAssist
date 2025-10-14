@@ -1,15 +1,28 @@
-<button (click)="createNewWindow()">new window</button>
-<ul>
-  <li
-    *ngFor="let window of windowService.windows(); let i = index"
-    class="list-keyword"
-  >
-    <div class="container flex justify-between items-center">
-      <div class="keyword-text">{{ i + 1 }}. {{ window.name }}</div>
-      <button (click)="onWindowClick(window.id)">
-        {{ window.id === windowService.activeWindowID() ? "Active" : "Select" }}
-      </button>
-      <button (click)="deleteWindow(window.id)">Delete</button>
-    </div>
-  </li>
-</ul>
+<div class="container">
+  <button (click)="createNewWindow()" class="new-window-button">
+    new window
+  </button>
+
+  <ul class="container">
+    <li
+      *ngFor="let window of windowService.windows(); let i = index"
+      class="window"
+      [ngClass]="{
+        'active-window': window.id === windowService.activeWindowID(),
+        'inactive-window': window.id !== windowService.activeWindowID()
+      }"
+      [style.backgroundColor]="
+        windowService.getBackgroundColor(window.id) || '#222222'
+      "
+    >
+      <div class="container">
+        <button (click)="onWindowClick(window.id)">
+          {{
+            window.id === windowService.activeWindowID() ? "Active" : "Select"
+          }}
+        </button>
+        <button (click)="deleteWindow(window.id)">Delete</button>
+      </div>
+    </li>
+  </ul>
+</div>

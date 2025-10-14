@@ -25,6 +25,10 @@ export class WindowService {
     this.keywordService.setActiveWindowID(windowID);
   }
 
+  getBackgroundColor(windowID: string) {
+    return this.storage.getBackgroundColor(windowID);
+  }
+
   removeWindow(windowID: string) {
     this.storage.deleteWindow(windowID);
   }
