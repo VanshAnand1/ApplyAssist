@@ -1,23 +1,17 @@
-<h2 class="keywords-display-header">Keywords:</h2>
-<button (click)="clearAllKeywords()" class="status-toggle-button">
-  Clear All
-</button>
+<p class="">Keywords:</p>
+<button (click)="clearAllKeywords()" class="">Clear All</button>
 <ul>
   <li
     *ngFor="let keyword of keywordService.keywords(); let i = index"
-    class="list-keyword"
+    class=""
     [class.done]="keyword.done"
   >
-    <div class="container">
-      <div class="keyword-text">{{ i + 1 }}. {{ keyword.text }}</div>
-      <div class="keyword-options">
+    <div class="">
+      <div class="">{{ i + 1 }}. {{ keyword.text }}</div>
+      <div class="">
         {{ keyword.done ? "Done" : "Not Done" }}
-        <button (click)="toggleKeyword(keyword)" class="status-toggle-button">
-          Toggle
-        </button>
-        <button (click)="removeKeyword(keyword)" class="delete-button">
-          Delete
-        </button>
+        <button (click)="toggleKeyword(keyword)" class="">Toggle</button>
+        <button (click)="removeKeyword(keyword)" class="">Delete</button>
       </div>
     </div>
   </li>

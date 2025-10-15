@@ -1,10 +1,10 @@
-<div class="flex bg-amber-600">
+<div class="">
   <button (click)="createNewWindow()" class="new-window-button">+</button>
 
-  <ul class="container">
+  <ul class="">
     <li
       *ngFor="let window of windowService.windows(); let i = index"
-      class="window"
+      class=""
       [ngClass]="{
         'active-window': window.id === windowService.activeWindowID(),
         'inactive-window': window.id !== windowService.activeWindowID()
@@ -13,7 +13,7 @@
         windowService.getBackgroundColor(window.id) || '#222222'
       "
     >
-      <div class="container">
+      <div class="">
         <button (click)="onWindowClick(window.id)">
           {{ window.name ? window.name : "unnamed window" }}
         </button>
