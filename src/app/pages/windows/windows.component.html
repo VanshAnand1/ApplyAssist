@@ -1,5 +1,14 @@
-<div class="">
-  <button (click)="createNewWindow()" class="new-window-button">+</button>
+<div class="items-center">
+  <form (ngSubmit)="createNewWindow()">
+    <input type="text" class="" [(ngModel)]="windowName" />
+    <button
+      (click)="createNewWindow()"
+      type="submit"
+      class="border-black rounded-2xl bg-amber-300 text-3xl"
+    >
+      Add Window
+    </button>
+  </form>
 
   <ul class="">
     <li
