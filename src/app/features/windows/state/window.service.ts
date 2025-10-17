@@ -30,10 +30,14 @@ export class WindowService {
   }
 
   colorMap(color: string | undefined) {
-    if (color === 'gray') return '#949194';
-    if (color === 'red') return '#eb5234';
-    if (color === 'purple') return '#de34eb';
-    return '#34d8eb';
+    if (color === 'blue') return '#80f0ff';
+    if (color === 'red') return '#ff8c80';
+    if (color === 'yellow') return '#fff780';
+    if (color === 'orange') return '#ffc380';
+    if (color === 'purple') return '#df80ff';
+    if (color === 'pink') return '#ff80ec';
+    if (color === 'green') return '#bbff80';
+    return '#9ea3a3';
   }
 
   removeWindow(windowID: string) {

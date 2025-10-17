@@ -1,23 +1,3 @@
-.container {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  padding: 3px;
-}
-
-.new-window-button {
-  background-color: rgba(78, 77, 77, 0.84);
-  font-size: 40px;
-  border-radius: 64px;
-}
-
-.window {
-  padding: 1px;
-  background-color: aqua;
-  border-radius: 16px;
-  border: 0 solid black;
-}
-
 .active-window {
-  border-width: 2px;
+  font-weight: bold;
 }

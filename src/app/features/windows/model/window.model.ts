@@ -18,9 +18,11 @@ export class Window implements WindowSchema {
     'blue',
     'red',
     'yellow',
+    'orange',
     'purple',
     'pink',
     'green',
+    'gray',
   ];
 
   keywords: { [key: string]: Keyword } = {};

@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 })
 export default class WindowsComponent {
   windowName: string = '';
+  pillColor: string = 'blue';
   windowService = inject(WindowService);
 
   onInputChange(event: Event) {
@@ -20,8 +21,8 @@ export default class WindowsComponent {
     this.windowName = inputElement.value;
   }
 
-  createNewWindow() {
-    this.windowService.createNewWindow('blue', this.windowName);
+  createNewWindow(pillColor: string) {
+    this.windowService.createNewWindow(pillColor, this.windowName);
   }
 
   onWindowClick(windowID: string) {
@@ -30,5 +31,9 @@ export default class WindowsComponent {
 
   deleteWindow(windowID: string) {
     this.windowService.removeWindow(windowID);
+  }
+
+  pinWindow(windowID: string) {
+    console.log('pin', windowID);
   }
 }
