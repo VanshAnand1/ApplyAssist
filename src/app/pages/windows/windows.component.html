@@ -3,6 +3,9 @@
     <input
       type="text"
       placeholder="Window name..."
+      name="window"
+      id="window"
+      required
       class="bg-neutral-500 rounded-2xl hover:border-black text-white p-2 text-xl"
       [(ngModel)]="windowName"
     />
@@ -21,7 +24,6 @@
       <option value="gray">gray</option>
     </select>
     <button
-      (click)="createNewWindow(pillColor)"
       type="submit"
       class="border-black rounded-2xl bg-amber-300 text-2xl p-2 hover:bg-amber-400"
     >

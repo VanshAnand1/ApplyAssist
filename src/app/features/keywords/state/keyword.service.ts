@@ -8,9 +8,7 @@ export class KeywordService {
   storage = inject(StorageService);
 
   keywords = computed(() => this.storage.keywordsFor(this.activeWindowID())());
-  constructor() {
-    this.storage.createNewWindow('0', 'gray');
-  }
+  constructor() {}
 
   getActiveWindowID() {
     return this.activeWindowID();

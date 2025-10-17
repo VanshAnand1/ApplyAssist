@@ -23,6 +23,7 @@ export default class WindowsComponent {
 
   createNewWindow(pillColor: string) {
     this.windowService.createNewWindow(pillColor, this.windowName);
+    this.windowName = '';
   }
 
   onWindowClick(windowID: string) {
