@@ -4,18 +4,38 @@ import { StorageService } from '../../storage/storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class KeywordService {
-  private activeWindowID = signal<string>('0');
+  private activeWindowID = signal<string | null>(null);
   storage = inject(StorageService);
 
   keywords = computed(() => this.storage.keywordsFor(this.activeWindowID())());
-  constructor() {}
+
+  constructor() {
+    this.initActiveWindow();
+  }
+
+  private async initActiveWindow() {
+    try {
+      const id = await this.storage.getLastActiveWindowID();
+      if (id) {
+        const root = await this.storage.getRoot();
+        if (root.windows[id]) this.activeWindowID.set(id);
+      }
+    } catch (e) {
+      console.warn('Failed to initialize active window id', e);
+    }
+  }
 
   getActiveWindowID() {
     return this.activeWindowID();
   }
 
-  setActiveWindowID(windowID: string) {
+  async setActiveWindowID(windowID: string | null) {
     this.activeWindowID.set(windowID);
+    try {
+      await this.storage.setLastActiveWindowID(windowID);
+    } catch (e) {
+      console.warn('Failed to persist active window id', e);
+    }
   }
 
   getKeywords() {
@@ -27,15 +47,21 @@ export class KeywordService {
   }
 
   addKeyword(keyword: Keyword) {
-    this.storage.insertKeyword(this.getActiveWindowID(), keyword);
+    const id = this.getActiveWindowID();
+    if (!id) return;
+    this.storage.insertKeyword(id, keyword);
   }
 
   removeKeyword(keyword: Keyword) {
-    this.storage.deleteKeyword(this.getActiveWindowID(), keyword);
+    const id = this.getActiveWindowID();
+    if (!id) return;
+    this.storage.deleteKeyword(id, keyword);
   }
 
   clearKeywords() {
-    this.storage.clearAllKeywords(this.getActiveWindowID());
+    const id = this.getActiveWindowID();
+    if (!id) return;
+    this.storage.clearAllKeywords(id);
   }
 
   getKeywordsCount() {
@@ -43,7 +69,9 @@ export class KeywordService {
   }
 
   toggleKeywordStatus(keyword: Keyword) {
-    this.storage.toggleKeywordStatus(this.getActiveWindowID(), keyword.id);
+    const id = this.getActiveWindowID();
+    if (!id) return;
+    this.storage.toggleKeywordStatus(id, keyword.id);
   }
 
   count = computed(() => this.keywords().length);

@@ -21,8 +21,8 @@ export class WindowService {
     this.storage.createNewWindow(Date.now().toString(), color, name);
   }
 
-  selectWindow(windowID: string) {
-    this.keywordService.setActiveWindowID(windowID);
+  async selectWindow(windowID: string | null) {
+    await this.keywordService.setActiveWindowID(windowID);
   }
 
   getBackgroundColor(windowID: string) {

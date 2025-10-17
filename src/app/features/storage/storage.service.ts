@@ -3,8 +3,18 @@ import { Keyword } from '../keywords/model/keyword.model';
 import { WindowSchema, Window } from '../windows/model/window.model';
 
 type WindowMap = Record<string, WindowSchema>;
-type Root = { version: 1; windowOrder: string[]; windows: WindowMap };
-const DEFAULT_ROOT: Root = { version: 1, windowOrder: [], windows: {} };
+type Root = {
+  version: 1;
+  windowOrder: string[];
+  windows: WindowMap;
+  lastActiveWindowID?: string | null;
+};
+const DEFAULT_ROOT: Root = {
+  version: 1,
+  windowOrder: [],
+  windows: {},
+  lastActiveWindowID: null,
+};
 
 @Injectable({ providedIn: 'root' })
 export class StorageService {
@@ -65,6 +75,17 @@ export class StorageService {
       windows: { ...root.windows, [windowID]: newWindow },
     };
 
+    await this.setRoot(updatedRoot);
+  }
+
+  async getLastActiveWindowID(): Promise<string | null> {
+    const root = await this.getRoot();
+    return root.lastActiveWindowID ?? null;
+  }
+
+  async setLastActiveWindowID(windowID: string | null) {
+    const root = await this.getRoot();
+    const updatedRoot: Root = { ...root, lastActiveWindowID: windowID };
     await this.setRoot(updatedRoot);
   }
 
@@ -168,6 +189,10 @@ export class StorageService {
       ...root,
       windows: remainingWindows,
       windowOrder: newWindowOrder,
+      lastActiveWindowID:
+        root.lastActiveWindowID && root.lastActiveWindowID === windowID
+          ? null
+          : root.lastActiveWindowID,
     };
 
     await this.setRoot(updatedRoot);
@@ -208,8 +233,9 @@ export class StorageService {
     return window.color;
   }
 
-  keywordsFor = (windowId: string) =>
+  keywordsFor = (windowId: string | null | undefined) =>
     computed(() => {
+      if (!windowId) return [];
       const root = this.rootSignal();
       const window = root.windows[windowId];
       if (!window) return [];
