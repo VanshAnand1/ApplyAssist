@@ -15,7 +15,6 @@ import { CommonModule } from '@angular/common';
     CommonModule,
   ],
   templateUrl: './keyword-form.component.html',
-  styleUrls: ['./keyword-form.component.css'],
 })
 export default class KeywordFormComponent {
   storageService = inject(StorageService);
