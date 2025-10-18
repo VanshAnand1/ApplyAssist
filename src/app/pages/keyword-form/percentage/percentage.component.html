@@ -1,4 +1,6 @@
-<div class="">
-  <p>Percentage:</p>
-  {{ store.percentDone() }}
+<div
+  class="flex items-center justify-start"
+  [style.backgroundColor]="percentDoneToColor()"
+>
+  <p class="text-xl text-black p-2">Percentage: {{ store.percentDone() }}</p>
 </div>
