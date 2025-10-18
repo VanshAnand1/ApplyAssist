@@ -24,4 +24,14 @@ export default class KeywordFormComponent {
     const root = this.storageService.rootSignal();
     return !!(root && root.lastActiveWindowID);
   }
+
+  activeWindowName(): string {
+    const root = this.storageService.rootSignal();
+    const id = root.lastActiveWindowID ?? null;
+    if (id !== null) {
+      const window = root.windows[id];
+      return window?.name || 'No Window Selected';
+    }
+    return 'No Window Selected';
+  }
 }

@@ -100,7 +100,7 @@ export class StorageService {
     await this.setRoot(updatedRoot);
   }
 
-  async getLastActiveWindowID(): Promise<string | null> {
+  async getLastActiveWindowID() {
     const root = await this.getRoot();
     return root.lastActiveWindowID ?? null;
   }

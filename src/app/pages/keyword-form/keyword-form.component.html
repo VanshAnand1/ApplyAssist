@@ -1,4 +1,5 @@
 <div *ngIf="lastWindowExists(); else noTabSelected">
+  {{ this.activeWindowName() }}
   <percentage-component></percentage-component>
   <keyword-input></keyword-input>
   <keyword-display></keyword-display>
