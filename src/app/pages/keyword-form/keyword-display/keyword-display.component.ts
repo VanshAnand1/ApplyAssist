@@ -25,4 +25,11 @@ export default class KeywordDisplayComponent {
   clearAllKeywords() {
     this.keywordService.clearKeywords();
   }
+
+  toggleToColor(status: boolean) {
+    if (status) {
+      return '#c0f27e';
+    }
+    return '#f27e82';
+  }
 }
