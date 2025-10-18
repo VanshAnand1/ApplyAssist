@@ -21,8 +21,23 @@ export class WindowService {
     this.storage.createNewWindow(Date.now().toString(), color, name);
   }
 
-  selectWindow(windowID: string) {
-    this.keywordService.setActiveWindowID(windowID);
+  async selectWindow(windowID: string | null) {
+    await this.keywordService.setActiveWindowID(windowID);
+  }
+
+  getBackgroundColor(windowID: string) {
+    return this.colorMap(this.storage.getBackgroundColor(windowID));
+  }
+
+  colorMap(color: string | undefined) {
+    if (color === 'blue') return '#80f0ff';
+    if (color === 'red') return '#ff8c80';
+    if (color === 'yellow') return '#fff780';
+    if (color === 'orange') return '#ffc380';
+    if (color === 'purple') return '#df80ff';
+    if (color === 'pink') return '#ff80ec';
+    if (color === 'green') return '#bbff80';
+    return '#9ea3a3';
   }
 
   removeWindow(windowID: string) {

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { inject } from '@angular/core';
 import { KeywordService } from '../../../features/keywords/state/keyword.service';
-import { Keyword } from 'src/app/features/keywords/model/keyword.model';
+import { Keyword } from '../../../features/keywords/model/keyword.model';
 
 @Component({
   selector: 'keyword-display',
@@ -24,5 +24,12 @@ export default class KeywordDisplayComponent {
 
   clearAllKeywords() {
     this.keywordService.clearKeywords();
+  }
+
+  toggleToColor(status: boolean) {
+    if (status) {
+      return '#c0f27e';
+    }
+    return '#f27e82';
   }
 }

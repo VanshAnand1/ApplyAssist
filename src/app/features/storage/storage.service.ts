@@ -3,19 +3,42 @@ import { Keyword } from '../keywords/model/keyword.model';
 import { WindowSchema, Window } from '../windows/model/window.model';
 
 type WindowMap = Record<string, WindowSchema>;
-type Root = { version: 1; windowOrder: string[]; windows: WindowMap };
-const DEFAULT_ROOT: Root = { version: 1, windowOrder: [], windows: {} };
+type Root = {
+  version: 1;
+  windowOrder: string[];
+  windows: WindowMap;
+  lastActiveWindowID?: string | null;
+};
+const DEFAULT_ROOT: Root = {
+  version: 1,
+  windowOrder: [],
+  windows: {},
+  lastActiveWindowID: null,
+};
 
 @Injectable({ providedIn: 'root' })
 export class StorageService {
   readonly rootSignal = signal<Root>(DEFAULT_ROOT);
 
   constructor() {
-    this.init();
-    chrome.storage.onChanged.addListener(this.onChanged);
+    if (
+      typeof chrome !== 'undefined' &&
+      chrome?.storage &&
+      chrome.storage.onChanged
+    ) {
+      this.init();
+      chrome.storage.onChanged.addListener(this.onChanged);
+    } else {
+      this.rootSignal.set(DEFAULT_ROOT);
+    }
   }
 
   private async init() {
+    if (typeof chrome === 'undefined' || !chrome?.storage?.local?.get) {
+      this.rootSignal.set(DEFAULT_ROOT);
+      return;
+    }
+
     const { root = DEFAULT_ROOT } = (await chrome.storage.local.get({
       root: DEFAULT_ROOT,
     })) as { root: Root };
@@ -36,6 +59,10 @@ export class StorageService {
   };
 
   async getRoot() {
+    if (typeof chrome === 'undefined' || !chrome?.storage?.local?.get) {
+      return this.rootSignal();
+    }
+
     const { root = DEFAULT_ROOT } = (await chrome.storage.local.get({
       root: DEFAULT_ROOT,
     })) as { root: Root };
@@ -43,6 +70,11 @@ export class StorageService {
   }
 
   async setRoot(root: Root) {
+    if (typeof chrome === 'undefined' || !chrome?.storage?.local?.set) {
+      this.rootSignal.set(root);
+      return;
+    }
+
     await chrome.storage.local.set({ root });
   }
 
@@ -65,6 +97,17 @@ export class StorageService {
       windows: { ...root.windows, [windowID]: newWindow },
     };
 
+    await this.setRoot(updatedRoot);
+  }
+
+  async getLastActiveWindowID() {
+    const root = await this.getRoot();
+    return root.lastActiveWindowID ?? null;
+  }
+
+  async setLastActiveWindowID(windowID: string | null) {
+    const root = await this.getRoot();
+    const updatedRoot: Root = { ...root, lastActiveWindowID: windowID };
     await this.setRoot(updatedRoot);
   }
 
@@ -168,6 +211,10 @@ export class StorageService {
       ...root,
       windows: remainingWindows,
       windowOrder: newWindowOrder,
+      lastActiveWindowID:
+        root.lastActiveWindowID && root.lastActiveWindowID === windowID
+          ? null
+          : root.lastActiveWindowID,
     };
 
     await this.setRoot(updatedRoot);
@@ -201,8 +248,16 @@ export class StorageService {
     await this.setRoot(updatedRoot);
   }
 
-  keywordsFor = (windowId: string) =>
+  getBackgroundColor(windowID: string): string | undefined {
+    const root = this.rootSignal();
+    const window = root.windows[windowID];
+    if (!window) return undefined;
+    return window.color;
+  }
+
+  keywordsFor = (windowId: string | null | undefined) =>
     computed(() => {
+      if (!windowId) return [];
       const root = this.rootSignal();
       const window = root.windows[windowId];
       if (!window) return [];

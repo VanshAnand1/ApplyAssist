@@ -12,4 +12,14 @@ import { KeywordService } from '../../../features/keywords/state/keyword.service
 })
 export default class PercentageComponent {
   store = inject(KeywordService);
+
+  percentDoneToColor() {
+    if (this.store.percentDone() >= 85) {
+      return '#bbff80';
+    }
+    if (this.store.percentDone() >= 50) {
+      return '#ffc380';
+    }
+    return '#ff8c80';
+  }
 }
