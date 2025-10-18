@@ -21,11 +21,24 @@ export class StorageService {
   readonly rootSignal = signal<Root>(DEFAULT_ROOT);
 
   constructor() {
-    this.init();
-    chrome.storage.onChanged.addListener(this.onChanged);
+    if (
+      typeof chrome !== 'undefined' &&
+      chrome?.storage &&
+      chrome.storage.onChanged
+    ) {
+      this.init();
+      chrome.storage.onChanged.addListener(this.onChanged);
+    } else {
+      this.rootSignal.set(DEFAULT_ROOT);
+    }
   }
 
   private async init() {
+    if (typeof chrome === 'undefined' || !chrome?.storage?.local?.get) {
+      this.rootSignal.set(DEFAULT_ROOT);
+      return;
+    }
+
     const { root = DEFAULT_ROOT } = (await chrome.storage.local.get({
       root: DEFAULT_ROOT,
     })) as { root: Root };
@@ -46,6 +59,10 @@ export class StorageService {
   };
 
   async getRoot() {
+    if (typeof chrome === 'undefined' || !chrome?.storage?.local?.get) {
+      return this.rootSignal();
+    }
+
     const { root = DEFAULT_ROOT } = (await chrome.storage.local.get({
       root: DEFAULT_ROOT,
     })) as { root: Root };
@@ -53,6 +70,11 @@ export class StorageService {
   }
 
   async setRoot(root: Root) {
+    if (typeof chrome === 'undefined' || !chrome?.storage?.local?.set) {
+      this.rootSignal.set(root);
+      return;
+    }
+
     await chrome.storage.local.set({ root });
   }
 

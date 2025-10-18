@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { inject } from '@angular/core';
 import { KeywordService } from '../../../features/keywords/state/keyword.service';
-import { Keyword } from 'src/app/features/keywords/model/keyword.model';
+import { Keyword } from '../../../features/keywords/model/keyword.model';
 
 @Component({
   selector: 'keyword-display',

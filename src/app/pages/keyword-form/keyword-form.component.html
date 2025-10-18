@@ -1,0 +1,8 @@
+<div *ngIf="lastWindowExists(); else noTabSelected">
+  <percentage-component></percentage-component>
+  <keyword-input></keyword-input>
+  <keyword-display></keyword-display>
+</div>
+<ng-template #noTabSelected>
+  <p>select a window or create a new one to get started</p>
+</ng-template>

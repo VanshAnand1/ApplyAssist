@@ -11,7 +11,7 @@
     />
     <select
       [(ngModel)]="pillColor"
-      class="text-2xl px-3 py-2 rounded-2xl border"
+      class="text-2xl px-3 py-2 rounded-2xl"
       [style.backgroundColor]="windowService.colorMap(pillColor)"
     >
       <option value="blue" selected>blue</option>
@@ -50,13 +50,13 @@
         <div class="flex items-center justify-between gap-2">
           <button
             (click)="deleteWindow(window.id)"
-            class="bg-amber-100 rounded-2xl p-2"
+            class="bg-red-600 text-white rounded-2xl p-2"
           >
             Delete
           </button>
           <button
             (click)="pinWindow(window.id)"
-            class="bg-amber-100 rounded-2xl p-2"
+            class="bg-blue-600 text-white rounded-2xl p-2"
           >
             Pin to tab
           </button>
