@@ -42,9 +42,10 @@
       [style.backgroundColor]="
         windowService.getBackgroundColor(window.id) || '#222222'
       "
+      (click)="onWindowClick(window.id)"
     >
       <div class="flex items-center justify-between p-1">
-        <button (click)="onWindowClick(window.id)">
+        <button>
           {{ window.name ? window.name : "unnamed window" }}
         </button>
         <div class="flex items-center justify-between gap-2">
