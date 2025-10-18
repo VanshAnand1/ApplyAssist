@@ -36,8 +36,7 @@
       *ngFor="let window of windowService.windows(); let i = index"
       class=""
       [ngClass]="{
-        'active-window': window.id === windowService.activeWindowID(),
-        'inactive-window': window.id !== windowService.activeWindowID()
+        'font-bold': window.id === windowService.activeWindowID()
       }"
       [style.backgroundColor]="
         windowService.getBackgroundColor(window.id) || '#222222'

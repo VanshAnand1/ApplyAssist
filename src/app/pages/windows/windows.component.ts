@@ -9,7 +9,6 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './windows.component.html',
-  styleUrls: ['./windows.component.css'],
 })
 export default class WindowsComponent {
   windowName: string = '';

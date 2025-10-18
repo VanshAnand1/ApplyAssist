@@ -8,7 +8,6 @@ import { KeywordService } from '../../../features/keywords/state/keyword.service
   standalone: true,
   imports: [FormsModule],
   templateUrl: './percentage.component.html',
-  styleUrls: ['./percentage.component.css'],
 })
 export default class PercentageComponent {
   store = inject(KeywordService);
