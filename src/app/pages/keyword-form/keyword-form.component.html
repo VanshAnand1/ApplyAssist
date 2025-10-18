@@ -1,6 +1,8 @@
 <div *ngIf="lastWindowExists(); else noTabSelected">
   <br />
-  <p class="items-center text-xl bg-emerald-300 text-black rounded-2xl p-2">
+  <p
+    class="items-center text-xl bg-emerald-300 text-black rounded-2xl p-2 font-bold"
+  >
     {{ this.activeWindowName() }}
   </p>
   <percentage-component></percentage-component>
