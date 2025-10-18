@@ -1,15 +1,16 @@
-<p class="">Keyword Input</p>
-<form (ngSubmit)="onAddKeyword()">
-  <div class="">
-    <label for="keyword">Enter Keyword:</label>
-    <input
-      type="text"
-      placeholder="new keyword..."
-      id="keyword"
-      name="keyword"
-      [(ngModel)]="keywordText"
-      required
-    />
-  </div>
-  <button type="submit" class="">Add Keyword</button>
-</form>
+<div class="flex items-center text-xl">
+  <form (ngSubmit)="onAddKeyword()">
+    <div class="">
+      <label for="keyword">Enter Keyword:</label>
+      <input
+        type="text"
+        placeholder="new keyword..."
+        id="keyword"
+        name="keyword"
+        [(ngModel)]="keywordText"
+        required
+      />
+    </div>
+    <button type="submit" class="">Add Keyword</button>
+  </form>
+</div>
