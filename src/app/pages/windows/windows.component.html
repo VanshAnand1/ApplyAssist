@@ -49,13 +49,13 @@
         </button>
         <div class="flex items-center justify-between gap-2">
           <button
-            (click)="deleteWindow(window.id)"
+            (click)="deleteWindow(window.id); $event.stopPropagation()"
             class="bg-red-600 text-white rounded-2xl p-2"
           >
             Delete
           </button>
           <button
-            (click)="pinWindow(window.id)"
+            (click)="pinWindow(window.id); $event.stopPropagation()"
             class="bg-blue-600 text-white rounded-2xl p-2"
           >
             Pin to tab
