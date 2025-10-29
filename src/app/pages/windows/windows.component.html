@@ -55,7 +55,11 @@
             Delete
           </button>
           <button
-            (click)="pinWindow(window.id); $event.stopPropagation()"
+            (click)="
+              pinWindow(window.id);
+              $event.stopPropagation();
+              onWindowClick(window.id)
+            "
             class="bg-blue-600 text-white rounded-2xl p-2"
           >
             Pin to tab

@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { WindowService } from '../../features/windows/state/window.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import KeywordFormComponent from '../keyword-form/keyword-form.component';
+import { StorageService } from '../../features/storage/storage.service';
 
 @Component({
   selector: 'windows-component',
@@ -15,6 +15,7 @@ export default class WindowsComponent {
   windowName: string = '';
   pillColor: string = 'blue';
   windowService = inject(WindowService);
+  storageService = inject(StorageService);
 
   onInputChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
@@ -45,17 +46,42 @@ export default class WindowsComponent {
   async pinWindow(windowID: string) {
     const tabId = await this.getActiveTabID();
     if (!tabId) return;
+    this.storageService.setLastActiveWindowID(windowID);
+    const windowName = this.windowService.getWindowName(windowID) ?? 'Unknown';
 
     chrome.scripting.executeScript({
       target: { tabId },
-      func: (id) => {
-        console.log('hello');
-        // const overlayWindowID = 'APPLYASSIST-OVERLAY-WINDOW-ID';
-        // let overlayWindow = document.getElementById(overlayWindowID);
-        // overlayWindow = document.createElement('keyword-form-component');
-        // document.documentElement.appendChild(overlayWindow);
+      func: (name: string) => {
+        const overlayWindowID = 'APPLYASSIST-OVERLAY-WINDOW-ID';
+        let overlayWindow = document.getElementById(
+          overlayWindowID
+        ) as HTMLElement | null;
+        if (!overlayWindow) {
+          overlayWindow = document.createElement('div');
+          overlayWindow.id = overlayWindowID;
+          overlayWindow.style.position = 'absolute';
+          overlayWindow.style.right = '10px';
+          overlayWindow.style.top = '10px';
+          overlayWindow.style.width = '400px';
+          overlayWindow.style.height = '100vh';
+          overlayWindow.style.backgroundColor = 'black';
+          document.documentElement.appendChild(overlayWindow);
+        }
+
+        const overlayTitleID = 'APPLYASSIST-OVERLAY-TITLE-ID';
+        let overlayTitle = document.getElementById(
+          overlayTitleID
+        ) as HTMLElement | null;
+        if (!overlayTitle) {
+          overlayTitle = document.createElement('p');
+          overlayTitle.id = overlayTitleID;
+          overlayTitle.style.padding = '4px';
+          overlayWindow.appendChild(overlayTitle);
+        }
+
+        overlayTitle.textContent = name;
       },
-      args: [windowID],
+      args: [windowName],
     });
   }
 }

@@ -29,6 +29,10 @@ export class WindowService {
     return this.colorMap(this.storage.getBackgroundColor(windowID));
   }
 
+  getWindowName(windowID: string) {
+    return this.storage.getWindowName(windowID);
+  }
+
   colorMap(color: string | undefined) {
     if (color === 'blue') return '#80f0ff';
     if (color === 'red') return '#ff8c80';

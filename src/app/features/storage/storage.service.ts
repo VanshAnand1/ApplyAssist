@@ -255,6 +255,13 @@ export class StorageService {
     return window.color;
   }
 
+  getWindowName(windowID: string): string | undefined {
+    const root = this.rootSignal();
+    const window = root.windows[windowID];
+    if (!window) return undefined;
+    return window.name;
+  }
+
   keywordsFor = (windowId: string | null | undefined) =>
     computed(() => {
       if (!windowId) return [];
