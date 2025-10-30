@@ -106,6 +106,23 @@ export default class WindowsComponent {
           await setRoot(updatedRoot);
           return updatedWindow;
         };
+
+        const stateKey = '__APPLYASSIST_OVERLAY_STATE__';
+        const globalState = window as unknown as Record<string, unknown>;
+        const detachExistingListener = () => {
+          const existingListener = globalState[stateKey] as
+            | {
+                listener?: (
+                  changes: Record<string, chrome.storage.StorageChange>,
+                  area: string
+                ) => void;
+              }
+            | undefined;
+          if (existingListener?.listener) {
+            chrome.storage.onChanged.removeListener(existingListener.listener);
+          }
+        };
+        detachExistingListener();
       },
       args: [windowID, windowName],
     });
