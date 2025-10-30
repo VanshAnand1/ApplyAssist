@@ -138,6 +138,33 @@ export default class WindowsComponent {
             ) => void;
           };
         };
+
+        const overlayWindowID = 'APPLYASSIST-OVERLAY-WINDOW-ID';
+        let overlayWindow = document.getElementById(
+          overlayWindowID
+        ) as HTMLDivElement | null;
+        if (!overlayWindow) {
+          overlayWindow = document.createElement('div');
+          overlayWindow.id = overlayWindowID;
+          overlayWindow.style.position = 'fixed';
+          overlayWindow.style.top = '12px';
+          overlayWindow.style.right = '12px';
+          overlayWindow.style.width = '360px';
+          overlayWindow.style.maxHeight = '95vh';
+          overlayWindow.style.background =
+            'linear-gradient(160deg, rgba(8,27,41,0.95), rgba(11,46,73,0.95))';
+          overlayWindow.style.color = '#f8fafc';
+          overlayWindow.style.borderRadius = '16px';
+          overlayWindow.style.boxShadow = '0 20px 40px rgba(8, 12, 23, 0.45)';
+          overlayWindow.style.backdropFilter = 'blur(10px)';
+          overlayWindow.style.overflow = 'hidden';
+          overlayWindow.style.fontFamily =
+            "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+          overlayWindow.style.zIndex = '2147483647';
+          document.documentElement.appendChild(overlayWindow);
+        } else {
+          overlayWindow.innerHTML = '';
+        }
       },
       args: [windowID, windowName],
     });
