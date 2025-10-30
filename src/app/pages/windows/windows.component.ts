@@ -48,40 +48,5 @@ export default class WindowsComponent {
     if (!tabId) return;
     this.storageService.setLastActiveWindowID(windowID);
     const windowName = this.windowService.getWindowName(windowID) ?? 'Unknown';
-
-    chrome.scripting.executeScript({
-      target: { tabId },
-      func: (name: string) => {
-        const overlayWindowID = 'APPLYASSIST-OVERLAY-WINDOW-ID';
-        let overlayWindow = document.getElementById(
-          overlayWindowID
-        ) as HTMLElement | null;
-        if (!overlayWindow) {
-          overlayWindow = document.createElement('div');
-          overlayWindow.id = overlayWindowID;
-          overlayWindow.style.position = 'absolute';
-          overlayWindow.style.right = '10px';
-          overlayWindow.style.top = '10px';
-          overlayWindow.style.width = '400px';
-          overlayWindow.style.height = '100vh';
-          overlayWindow.style.backgroundColor = 'black';
-          document.documentElement.appendChild(overlayWindow);
-        }
-
-        const overlayTitleID = 'APPLYASSIST-OVERLAY-TITLE-ID';
-        let overlayTitle = document.getElementById(
-          overlayTitleID
-        ) as HTMLElement | null;
-        if (!overlayTitle) {
-          overlayTitle = document.createElement('p');
-          overlayTitle.id = overlayTitleID;
-          overlayTitle.style.padding = '4px';
-          overlayWindow.appendChild(overlayTitle);
-        }
-
-        overlayTitle.textContent = name;
-      },
-      args: [windowName],
-    });
   }
 }
