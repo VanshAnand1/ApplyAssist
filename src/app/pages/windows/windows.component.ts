@@ -56,6 +56,7 @@ export default class WindowsComponent {
       world: 'ISOLATED',
       func: async (windowId: string, initialName: string) => {
         type Keyword = { text: string; done: boolean; id: string };
+
         type WindowSchema = {
           name?: string;
           color: string;
@@ -63,17 +64,47 @@ export default class WindowsComponent {
           keywords: { [key: string]: Keyword };
           keywordsOrder: Array<string>;
         };
+
         type Root = {
           version: number;
           windowOrder: string[];
-          windows: Record<string, Keyword>;
+          windows: Record<string, WindowSchema>;
           lastActiveWindowID: string | null;
         };
+
         const DEFAULT_ROOT: Root = {
           version: 1,
           windowOrder: [],
           windows: {},
           lastActiveWindowID: null,
+        };
+
+        const getRoot = async (): Promise<Root> => {
+          if (!chrome?.storage?.local?.get) return DEFAULT_ROOT;
+          const result = await chrome.storage.local.get({ root: DEFAULT_ROOT });
+          const root = (result['root'] ?? DEFAULT_ROOT) as Root;
+          return root.version ? root : DEFAULT_ROOT;
+        };
+
+        const setRoot = async (root: Root) => {
+          if (!chrome?.storage?.local?.set) return;
+          await chrome.storage.local.set({ root });
+        };
+
+        const updateWindow = async (
+          targetId: string,
+          updater: (window: WindowSchema) => WindowSchema
+        ) => {
+          const root = await getRoot();
+          const window = root.windows[targetId];
+          if (!window) return null;
+          const updatedWindow = updater(window);
+          const updatedRoot: Root = {
+            ...root,
+            windows: { ...root.windows, [targetId]: updatedWindow },
+          };
+          await setRoot(updatedRoot);
+          return updatedWindow;
         };
       },
       args: [windowID, windowName],
