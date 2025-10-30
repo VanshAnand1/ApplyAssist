@@ -175,6 +175,41 @@ export default class WindowsComponent {
           parent.appendChild(section);
           return section;
         };
+
+        const header = createSection(overlayWindow, {
+          padding: '20px 24px 12px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          borderBottom: '1px solid rgba(255,255,255,0.08)',
+        });
+
+        const titleWrapper = document.createElement('div');
+        Object.assign(titleWrapper.style, {
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '4px',
+        });
+
+        const title = document.createElement('h2');
+        title.textContent = initialName;
+        Object.assign(title.style, {
+          margin: '0',
+          fontSize: '18px',
+          fontWeight: '600',
+          letterSpacing: '0.01em',
+        });
+
+        const subtitle = document.createElement('span');
+        subtitle.textContent = 'Application checklist';
+        Object.assign(subtitle.style, {
+          fontSize: '13px',
+          color: 'rgba(241,245,249,0.6)',
+        });
+
+        titleWrapper.appendChild(title);
+        titleWrapper.appendChild(subtitle);
+        header.appendChild(titleWrapper);
       },
       args: [windowID, windowName],
     });
