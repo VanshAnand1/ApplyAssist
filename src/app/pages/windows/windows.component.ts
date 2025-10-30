@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StorageService } from '../../features/storage/storage.service';
 
+import { Keyword } from 'src/app/features/keywords/model/keyword.model';
+
 @Component({
   selector: 'windows-component',
   standalone: true,
@@ -48,5 +50,33 @@ export default class WindowsComponent {
     if (!tabId) return;
     this.storageService.setLastActiveWindowID(windowID);
     const windowName = this.windowService.getWindowName(windowID) ?? 'Unknown';
+
+    chrome.scripting.executeScript({
+      target: { tabId },
+      world: 'ISOLATED',
+      func: async (windowId: string, initialName: string) => {
+        type Keyword = { text: string; done: boolean; id: string };
+        type WindowSchema = {
+          name?: string;
+          color: string;
+          id: string;
+          keywords: { [key: string]: Keyword };
+          keywordsOrder: Array<string>;
+        };
+        type Root = {
+          version: number;
+          windowOrder: string[];
+          windows: Record<string, Keyword>;
+          lastActiveWindowID: string | null;
+        };
+        const DEFAULT_ROOT: Root = {
+          version: 1,
+          windowOrder: [],
+          windows: {},
+          lastActiveWindowID: null,
+        };
+      },
+      args: [windowID, windowName],
+    });
   }
 }
