@@ -165,6 +165,16 @@ export default class WindowsComponent {
         } else {
           overlayWindow.innerHTML = '';
         }
+
+        const createSection = (
+          parent: HTMLElement,
+          styles: Partial<CSSStyleDeclaration>
+        ) => {
+          const section = document.createElement('div');
+          Object.assign(section.style, styles);
+          parent.appendChild(section);
+          return section;
+        };
       },
       args: [windowID, windowName],
     });
