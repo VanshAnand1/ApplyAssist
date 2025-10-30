@@ -210,6 +210,32 @@ export default class WindowsComponent {
         titleWrapper.appendChild(title);
         titleWrapper.appendChild(subtitle);
         header.appendChild(titleWrapper);
+
+        const closeButton = document.createElement('button');
+        closeButton.textContent = '×';
+        Object.assign(closeButton.style, {
+          border: 'none',
+          background: 'rgba(15,23,42,0.3)',
+          color: '#e2e8f0',
+          fontSize: '20px',
+          width: '32px',
+          height: '32px',
+          borderRadius: '8px',
+          cursor: 'pointer',
+          transition: 'background 0.2s ease',
+        });
+        closeButton.addEventListener('mouseenter', () => {
+          closeButton.style.background = 'rgba(100,116,139,0.4)';
+        });
+        closeButton.addEventListener('mouseleave', () => {
+          closeButton.style.background = 'rgba(15,23,42,0.3)';
+        });
+        closeButton.addEventListener('click', () => {
+          if (overlayWindow) overlayWindow.remove();
+          detachExistingListener();
+          delete globalState[stateKey];
+        });
+        header.appendChild(closeButton);
       },
       args: [windowID, windowName],
     });
