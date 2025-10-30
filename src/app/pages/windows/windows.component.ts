@@ -123,6 +123,21 @@ export default class WindowsComponent {
           }
         };
         detachExistingListener();
+
+        const ensureStateContainer = () => {
+          if (
+            !globalState[stateKey] ||
+            typeof globalState[stateKey] !== 'object'
+          ) {
+            globalState[stateKey] = {};
+          }
+          return globalState[stateKey] as {
+            listener?: (
+              changes: Record<string, chrome.storage.StorageChange>,
+              area: string
+            ) => void;
+          };
+        };
       },
       args: [windowID, windowName],
     });
