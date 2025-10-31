@@ -228,6 +228,45 @@ export default class WindowsComponent {
           detachExistingListener();
           delete globalState[stateKey];
         });
+
+        const progressSection = createSection(overlayWindow, 'div', {
+          padding: '16px 24px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '12px',
+        });
+
+        const progressLabel = createSection(progressSection, 'div', {
+          fontSize: '13px',
+          color: 'rgba(148,163,184,0.9)',
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+        });
+        progressLabel.textContent = 'Completion';
+
+        const progressValue = createSection(progressSection, 'div', {
+          fontSize: '28px',
+          fontWeight: '600',
+          letterSpacing: '-0.02em',
+        });
+        progressValue.textContent = '0% complete';
+
+        const progressBar = createSection(progressSection, 'div', {
+          width: '100%',
+          height: '10px',
+          background: 'rgba(148, 163, 184, 0.2)',
+          borderRadius: '999px',
+          overflow: 'hidden',
+          position: 'relative',
+        });
+
+        const progressFill = createSection(progressBar, 'div', {
+          height: '100%',
+          width: '0%',
+          background: 'linear-gradient(120deg,#22d3ee,#22c55e)',
+          borderRadius: '999px',
+          transition: 'width 0.25s ease',
+        });
       },
       args: [windowID, windowName],
     });
