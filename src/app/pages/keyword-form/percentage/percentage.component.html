@@ -1,6 +1,24 @@
-<div
-  class="flex items-center justify-start"
-  [style.backgroundColor]="percentDoneToColor()"
->
-  <p class="text-xl text-black p-2">Percentage: {{ store.percentDone() }}</p>
+<div class="px-6 py-2 flex flex-col gap-2 text-white">
+  <div class="text-[28px] font-semibold tracking-[-0.02em]">
+    {{ this.store.percentDone() }}% complete
+  </div>
+  <div
+    class="w-full h-[10px] bg-[rgba(148_163_184_0.2)] rounded-[999px] overflow-hidden relative"
+  >
+    <div
+      class="h-full rounded-[999px] transition-[width] duration-[0.25s] ease-[ease]"
+      [style.width.%]="this.store.percentDone()"
+      [style.background]="percentFillColor()"
+    ></div>
+  </div>
+  <div class="text-sm text-[rgba(148_163_184_0.75)]">
+    {{
+      this.store.getKeywordsCount()
+        ? this.store.countDone() +
+          "/" +
+          this.store.getKeywordsCount() +
+          " keywords complete"
+        : "Add keywords to get started."
+    }}
+  </div>
 </div>

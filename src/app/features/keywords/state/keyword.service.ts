@@ -65,7 +65,7 @@ export class KeywordService {
   }
 
   getKeywordsCount() {
-    return this.keywords.length;
+    return this.keywords().length;
   }
 
   toggleKeywordStatus(keyword: Keyword) {
@@ -75,6 +75,11 @@ export class KeywordService {
   }
 
   count = computed(() => this.keywords().length);
+  countDone = computed(() => {
+    const arr = this.keywords();
+    const done = arr.filter((k) => k.done).length;
+    return done;
+  });
   percentDone = computed(() => {
     const arr = this.keywords();
     const done = arr.filter((k) => k.done).length;
