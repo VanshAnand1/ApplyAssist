@@ -509,6 +509,23 @@ export default class WindowsComponent {
             ? `${completed}/${total} keywords complete`
             : 'Add keywords to get started.';
         };
+
+        form.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          const text = input.value.trim();
+          if (!text) return;
+          await updateWindow(windowID, (window) => {
+            const keywordId = Date.now().toString();
+            const keyword: Keyword = { id: keywordId, text, done: false };
+            return {
+              ...window,
+              keywords: { ...window.keywords, [keywordId]: keyword },
+              keywordsOrder: [...window.keywordsOrder, keywordId],
+            };
+          });
+          input.value = '';
+          await refreshAndRender();
+        });
       },
       args: [windowID, windowName],
     });
