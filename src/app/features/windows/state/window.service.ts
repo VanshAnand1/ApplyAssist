@@ -33,6 +33,10 @@ export class WindowService {
     return this.storage.getWindowName(windowID);
   }
 
+  getWindowColor(windowID: string) {
+    return this.storage.getBackgroundColor(windowID);
+  }
+
   colorMap(color: string | undefined) {
     if (color === 'blue') return '#80f0ff';
     if (color === 'red') return '#ff8c80';
@@ -48,12 +52,8 @@ export class WindowService {
     this.storage.deleteWindow(windowID);
   }
 
-  changeWindowColor(windowID: string, color: string) {
-    this.storage.updateWindowColor(windowID, color);
-  }
-
-  changeWindowName(windowID: string, name: string) {
-    this.storage.updateWindowName(windowID, name);
+  updateWindowNameColor(windowID: string, name: string, color: string) {
+    this.storage.updateWindowNameColor(windowID, name, color);
   }
 
   reachedWindowLimit() {
