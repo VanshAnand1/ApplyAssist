@@ -536,6 +536,19 @@ export default class WindowsComponent {
           }));
           await refreshAndRender();
         });
+
+        const listener = async (
+          changes: Record<string, chrome.storage.StorageChange>,
+          area: string
+        ) => {
+          if (area !== 'local' || !changes['root']) return;
+          await refreshAndRender();
+        };
+
+        const stateContainer = ensureStateContainer();
+        stateContainer.listener = listener;
+        chrome.storage.onChanged.addListener(listener);
+        await refreshAndRender();
       },
       args: [windowID, windowName],
     });
