@@ -26,4 +26,8 @@ export default class KeywordInputComponent {
     });
     this.keywordText = '';
   }
+
+  clearAllKeywords() {
+    this.store.clearKeywords();
+  }
 }
