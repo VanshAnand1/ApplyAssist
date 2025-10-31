@@ -6,7 +6,7 @@
       name="window"
       id="window"
       required
-      class="bg-neutral-500 rounded-2xl hover:border-black text-white p-2 text-xl"
+      class="border-[rgba(148,163,184,0.2)] bg-[rgba(15,23,42,0.35)] rounded-2xl hover:border-black text-white p-2 text-xl"
       [(ngModel)]="windowName"
     />
     <select
@@ -25,7 +25,7 @@
     </select>
     <button
       type="submit"
-      class="border-black rounded-2xl bg-amber-300 text-2xl p-2 hover:bg-amber-400"
+      class="border-black rounded-2xl bg-[linear-gradient(120deg,#0ea5e9,#22c55e)] text-2xl p-2 hover:translate-y-[-1px]"
     >
       Add Window
     </button>
@@ -45,7 +45,7 @@
     >
       <div class="flex items-center justify-between p-1">
         <button>
-          {{ window.name ? window.name : "unnamed window" }}
+          {{ window.name ? window.name : "new window" }}
         </button>
         <div class="flex items-center justify-between gap-2">
           <button

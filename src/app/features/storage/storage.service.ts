@@ -79,7 +79,7 @@ export class StorageService {
   }
 
   async createNewWindow(windowID: string, color: string, name?: string) {
-    if (!name) name = '';
+    if (!name) name = 'new window';
     const root = await this.getRoot();
     if (root.windows[windowID]) return;
 
@@ -235,6 +235,7 @@ export class StorageService {
   }
 
   async updateWindowName(windowID: string, name: string) {
+    if (name === '') name = 'new window';
     const root = await this.getRoot();
     const window = root.windows[windowID];
     if (!window) return;
