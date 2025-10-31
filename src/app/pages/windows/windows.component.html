@@ -46,11 +46,11 @@
       "
       (click)="onWindowClick(window.id)"
     >
-      <div class="flex items-center justify-between p-1">
-        <button>
+      <div class="flex items-center justify-between gap-2 p-1">
+        <div class="flex-1 break-words whitespace-normal text-left">
           {{ window.name ? window.name : "new window" }}
-        </button>
-        <div class="flex items-center justify-between gap-2">
+        </div>
+        <div class="flex items-center gap-2 flex-shrink-0">
           <button
             (click)="deleteWindow(window.id); $event.stopPropagation()"
             class="bg-red-600 text-white rounded-2xl p-2"
@@ -65,7 +65,7 @@
             "
             class="bg-blue-600 text-white rounded-2xl p-2"
           >
-            Pin to left
+            Pin Left
           </button>
           <button
             (click)="
@@ -75,7 +75,7 @@
             "
             class="bg-blue-600 text-white rounded-2xl p-2"
           >
-            Pin to right
+            Pin Right
           </button>
         </div>
       </div>

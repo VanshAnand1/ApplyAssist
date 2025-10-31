@@ -1,13 +1,4 @@
-<div class="bg-emerald-300">
-  <div class="flex items-center justify-between px-2">
-    <p class="text-xl text-black">Keywords:</p>
-    <button
-      (click)="clearAllKeywords()"
-      class="bg-emerald-700 text-white p-2 text-xl rounded-2xl"
-    >
-      Clear All
-    </button>
-  </div>
+<div class="">
   <ul class="py-2">
     <li
       *ngFor="let keyword of keywordService.keywords(); let i = index"
@@ -19,12 +10,20 @@
         class="flex items-center text-[16px] text-black justify-between px-2"
       >
         <div class="">{{ i + 1 }}. {{ keyword.text }}</div>
-        <button
-          (click)="removeKeyword(keyword)"
-          class="rounded-2xl bg-red-600 text-white p-2"
-        >
-          Remove
-        </button>
+        <div class="flex gap-2">
+          <button
+            (click)="toggleKeyword(keyword)"
+            class="border-none px-3 py-2 rounded-[10px] bg-blue-600 text-white cursor-pointer text-[13px] font-semibold"
+          >
+            {{ keyword.done ? "Undo" : "Mark Done" }}
+          </button>
+          <button
+            (click)="removeKeyword(keyword)"
+            class="border-none px-3 py-2 rounded-[10px] bg-blue-600 text-white cursor-pointer text-[13px] font-semibold"
+          >
+            Remove
+          </button>
+        </div>
       </div>
     </li>
   </ul>
