@@ -321,8 +321,57 @@ export default class WindowsComponent {
         submitButton.addEventListener('mouseleave', () => {
           submitButton.style.transform = 'translateY(0)';
         });
-      },
 
+        const listContainer = createSection(body, 'div', {
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '8px',
+          maxHeight: '55vh',
+          overflowY: 'auto',
+          paddingRight: '6px',
+        });
+
+        const keywordList = createSection(listContainer, 'ul', {
+          listStyle: 'none',
+          margin: '0',
+          padding: '0',
+        });
+
+        const footer = createSection(overlayWindow, 'div', {
+          padding: '16px 24px 24px',
+          borderTop: '1px solid rgba(255,255,255,0.06)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          gap: '12px',
+        });
+
+        const summary = createSection(footer, 'span', {
+          fontSize: '13px',
+          color: 'rgba(148,163,184,0.9)',
+        });
+        summary.textContent = 'Keywords ready to track.';
+
+        const clearButton = createSection(footer, 'button', {
+          border: 'none',
+          background: 'rgba(239,68,68,0.16)',
+          color: '#fca5a5',
+          padding: '8px 14px',
+          borderRadius: '10px',
+          cursor: 'pointer',
+          fontWeight: '600',
+          transition: 'background 0.15s ease, color 0.15s ease',
+        });
+        clearButton.textContent = 'Clear All';
+        clearButton.addEventListener('mouseenter', () => {
+          clearButton.style.background = 'rgba(239,68,68,0.28)';
+          clearButton.style.color = '#fecaca';
+        });
+        clearButton.addEventListener('mouseleave', () => {
+          clearButton.style.background = 'rgba(239,68,68,0.16)';
+          clearButton.style.color = '#fca5a5';
+        });
+      },
       args: [windowID, windowName],
     });
   }
