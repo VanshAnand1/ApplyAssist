@@ -371,6 +371,15 @@ export default class WindowsComponent {
           clearButton.style.background = 'rgba(239,68,68,0.16)';
           clearButton.style.color = '#fca5a5';
         });
+
+        let cachedKeywords: Keyword[] = [];
+        let cachedName: string = initialName;
+
+        const percentFillColor = (percent: number) => {
+          if (percent >= 85) return 'linear-gradient(120deg,#4ade80,#22c55e)';
+          if (percent >= 50) return 'linear-gradient(120deg,#facc15,#fb923c)';
+          return 'linear-gradient(120deg,#f97316,#ef4444)';
+        };
       },
       args: [windowID, windowName],
     });
