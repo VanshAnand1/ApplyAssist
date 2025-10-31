@@ -380,6 +380,135 @@ export default class WindowsComponent {
           if (percent >= 50) return 'linear-gradient(120deg,#facc15,#fb923c)';
           return 'linear-gradient(120deg,#f97316,#ef4444)';
         };
+
+        const refreshAndRender = async () => {
+          const root = await getRoot();
+          const activeWindow = root.windows[windowID];
+          if (!activeWindow) {
+            cachedKeywords = [];
+            cachedName = initialName;
+          } else {
+            cachedKeywords = activeWindow.keywordsOrder
+              .map((keywordId) => activeWindow.keywords[keywordId])
+              .filter((keyword): keyword is Keyword => !!keyword);
+            cachedName = activeWindow.name || initialName;
+          }
+          title.textContent = cachedName || 'Unknown';
+
+          keywordList.innerHTML = '';
+          cachedKeywords.forEach((keyword, index) => {
+            const item = createSection(keywordList, 'li', {
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '12px',
+              padding: '12px 14px',
+              borderRadius: '12px',
+              background: keyword.done
+                ? 'rgba(59, 130, 246, 0.18)'
+                : 'rgba(15, 23, 42, 0.55)',
+              border: keyword.done
+                ? '1px solid rgba(96,165,250,0.35)'
+                : '1px solid rgba(148,163,184,0.2)',
+            });
+
+            const info = createSection(item, 'div', {
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '2px',
+            });
+
+            const label = createSection(info, 'span', {
+              fontSize: '15px',
+              fontWeight: '500',
+              color: '#f8fafc',
+            });
+            label.textContent = `${index + 1}. ${keyword.text}`;
+
+            const status = createSection(info, 'span', {
+              fontSize: '12px',
+              color: keyword.done ? '#bae6fd' : 'rgba(148,163,184,0.75)',
+            });
+            status.textContent = keyword.done ? 'Completed' : 'Pending';
+
+            const actions = createSection(item, 'div', {
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+            });
+
+            const toggleButton = createSection(actions, 'button', {
+              border: 'none',
+              padding: '8px 12px',
+              borderRadius: '10px',
+              background: keyword.done
+                ? 'rgba(59,130,246,0.22)'
+                : 'rgba(34,197,94,0.18)',
+              color: keyword.done ? '#bfdbfe' : '#bbf7d0',
+              cursor: 'pointer',
+              fontSize: '13px',
+              fontWeight: '600',
+            });
+            toggleButton.textContent = keyword.done ? 'Undo' : 'Mark Done';
+            toggleButton.addEventListener('click', async (event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              await updateWindow(windowId, (window) => {
+                const current = window.keywords[keyword.id];
+                if (!current) return window;
+                return {
+                  ...window,
+                  keywords: {
+                    ...window.keywords,
+                    [keyword.id]: { ...current, done: !current.done },
+                  },
+                };
+              });
+              await refreshAndRender();
+            });
+
+            const removeButton = createSection(actions, 'button', {
+              border: 'none',
+              padding: '8px 12px',
+              borderRadius: '10px',
+              background: 'rgba(239,68,68,0.18)',
+              color: '#fecaca',
+              cursor: 'pointer',
+              fontSize: '13px',
+              fontWeight: '600',
+            });
+            removeButton.textContent = 'Remove';
+            removeButton.addEventListener('click', async (event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              await updateWindow(windowId, (window) => {
+                const { [keyword.id]: _omitted, ...rest } = window.keywords;
+                return {
+                  ...window,
+                  keywords: rest,
+                  keywordsOrder: window.keywordsOrder.filter(
+                    (keywordId) => keywordId !== keyword.id
+                  ),
+                };
+              });
+              await refreshAndRender();
+            });
+          });
+
+          const total = cachedKeywords.length;
+          const completed = cachedKeywords.filter(
+            (keyword) => keyword.done
+          ).length;
+          const percentComplete = total
+            ? Math.round((completed / total) * 100)
+            : 0;
+          progressValue.textContent = `${percentComplete}% complete`;
+          progressFill.style.width = `${percentComplete}%`;
+          progressFill.style.background = percentFillColor(percentComplete);
+          summary.textContent = total
+            ? `${completed}/${total} keywords complete`
+            : 'Add keywords to get started.';
+        };
       },
       args: [windowID, windowName],
     });
