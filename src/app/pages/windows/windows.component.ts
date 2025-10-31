@@ -45,7 +45,7 @@ export default class WindowsComponent {
     return tab?.id;
   }
 
-  async pinWindow(windowID: string) {
+  async pinWindow(windowID: string, side: string) {
     const tabId = await this.getActiveTabID();
     if (!tabId) return;
     this.storageService.setLastActiveWindowID(windowID);
@@ -54,7 +54,7 @@ export default class WindowsComponent {
     chrome.scripting.executeScript({
       target: { tabId },
       world: 'ISOLATED',
-      func: async (windowId: string, initialName: string) => {
+      func: async (windowId: string, initialName: string, side: string) => {
         type Keyword = { text: string; done: boolean; id: string };
 
         type WindowSchema = {
@@ -148,7 +148,6 @@ export default class WindowsComponent {
           overlayWindow.id = overlayWindowID;
           overlayWindow.style.position = 'fixed';
           overlayWindow.style.top = '12px';
-          overlayWindow.style.right = '12px';
           overlayWindow.style.width = '360px';
           overlayWindow.style.maxHeight = '95vh';
           overlayWindow.style.background =
@@ -164,6 +163,13 @@ export default class WindowsComponent {
           document.documentElement.appendChild(overlayWindow);
         } else {
           overlayWindow.innerHTML = '';
+        }
+        overlayWindow.style.left = '';
+        overlayWindow.style.right = '';
+        if (side === 'left') {
+          overlayWindow.style.left = '12px';
+        } else if (side === 'right') {
+          overlayWindow.style.right = '12px';
         }
 
         const createSection = (
@@ -550,7 +556,7 @@ export default class WindowsComponent {
         chrome.storage.onChanged.addListener(listener);
         await refreshAndRender();
       },
-      args: [windowID, windowName],
+      args: [windowID, windowName, side],
     });
   }
 }
