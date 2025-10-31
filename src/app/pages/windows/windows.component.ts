@@ -168,15 +168,16 @@ export default class WindowsComponent {
 
         const createSection = (
           parent: HTMLElement,
+          elementType: string,
           styles: Partial<CSSStyleDeclaration>
         ) => {
-          const section = document.createElement('div');
+          const section = document.createElement(elementType);
           Object.assign(section.style, styles);
           parent.appendChild(section);
           return section;
         };
 
-        const header = createSection(overlayWindow, {
+        const header = createSection(overlayWindow, 'div', {
           padding: '20px 24px 12px',
           display: 'flex',
           alignItems: 'center',
@@ -184,36 +185,27 @@ export default class WindowsComponent {
           borderBottom: '1px solid rgba(255,255,255,0.08)',
         });
 
-        const titleWrapper = document.createElement('div');
-        Object.assign(titleWrapper.style, {
+        const titleWrapper = createSection(header, 'div', {
           display: 'flex',
           flexDirection: 'column',
           gap: '4px',
         });
 
-        const title = document.createElement('h2');
-        title.textContent = initialName;
-        Object.assign(title.style, {
+        const title = createSection(titleWrapper, 'h2', {
           margin: '0',
           fontSize: '18px',
           fontWeight: '600',
           letterSpacing: '0.01em',
         });
+        title.textContent = initialName;
 
-        const subtitle = document.createElement('span');
-        subtitle.textContent = 'Application checklist';
-        Object.assign(subtitle.style, {
+        const subtitle = createSection(titleWrapper, 'span', {
           fontSize: '13px',
           color: 'rgba(241,245,249,0.6)',
         });
+        subtitle.textContent = 'Application checklist';
 
-        titleWrapper.appendChild(title);
-        titleWrapper.appendChild(subtitle);
-        header.appendChild(titleWrapper);
-
-        const closeButton = document.createElement('button');
-        closeButton.textContent = '×';
-        Object.assign(closeButton.style, {
+        const closeButton = createSection(header, 'button', {
           border: 'none',
           background: 'rgba(15,23,42,0.3)',
           color: '#e2e8f0',
@@ -224,6 +216,7 @@ export default class WindowsComponent {
           cursor: 'pointer',
           transition: 'background 0.2s ease',
         });
+        closeButton.textContent = '×';
         closeButton.addEventListener('mouseenter', () => {
           closeButton.style.background = 'rgba(100,116,139,0.4)';
         });
@@ -235,7 +228,6 @@ export default class WindowsComponent {
           detachExistingListener();
           delete globalState[stateKey];
         });
-        header.appendChild(closeButton);
       },
       args: [windowID, windowName],
     });
