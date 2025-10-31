@@ -267,8 +267,64 @@ export default class WindowsComponent {
           borderRadius: '999px',
           transition: 'width 0.25s ease',
         });
+
+        const body = createSection(overlayWindow, 'div', {
+          padding: '0 24px 20px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px',
+        });
+
+        const form = createSection(body, 'form', {
+          display: 'flex',
+          gap: '8px',
+        });
+
+        const input = createSection(form, 'input', {
+          flex: '1 1 auto',
+          background: 'rgba(15,23,42,0.35)',
+          border: '1px solid rgba(148,163,184,0.2)',
+          borderRadius: '12px',
+          padding: '10px 12px',
+          color: '#e2e8f0',
+          fontSize: '14px',
+          outline: 'none',
+          transition: 'border 0.2s ease, background 0.2s ease',
+        }) as HTMLInputElement;
+        input.type = 'text';
+        input.placeholder = 'Add a keyword...';
+        input.addEventListener('focus', () => {
+          input.style.border = '1px solid rgba(56,189,248,0.6)';
+          input.style.background = 'rgba(15,23,42,0.55)';
+        });
+        input.addEventListener('blur', () => {
+          input.style.border = '1px solid rgba(148,163,184,0.2)';
+          input.style.background = 'rgba(15,23,42,0.35)';
+        });
+
+        const submitButton = createSection(form, 'button', {
+          border: 'none',
+          padding: '10px 18px',
+          borderRadius: '12px',
+          background: 'linear-gradient(120deg,#0ea5e9,#22c55e)',
+          color: '#f8fafc',
+          fontSize: '14px',
+          fontWeight: '600',
+          cursor: 'pointer',
+          transition: 'transform 0.15s ease',
+        }) as HTMLButtonElement;
+        submitButton.type = 'submit';
+        submitButton.textContent = 'Add';
+        submitButton.addEventListener('mouseenter', () => {
+          submitButton.style.transform = 'translateY(-1px)';
+        });
+        submitButton.addEventListener('mouseleave', () => {
+          submitButton.style.transform = 'translateY(0)';
+        });
       },
+
       args: [windowID, windowName],
     });
   }
 }
+2;
