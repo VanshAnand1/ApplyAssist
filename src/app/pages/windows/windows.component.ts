@@ -383,7 +383,7 @@ export default class WindowsComponent {
 
         const refreshAndRender = async () => {
           const root = await getRoot();
-          const activeWindow = root.windows[windowID];
+          const activeWindow = root.windows[windowId];
           if (!activeWindow) {
             cachedKeywords = [];
             cachedName = initialName;
@@ -514,7 +514,7 @@ export default class WindowsComponent {
           event.preventDefault();
           const text = input.value.trim();
           if (!text) return;
-          await updateWindow(windowID, (window) => {
+          await updateWindow(windowId, (window) => {
             const keywordId = Date.now().toString();
             const keyword: Keyword = { id: keywordId, text, done: false };
             return {
