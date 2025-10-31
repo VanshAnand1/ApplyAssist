@@ -184,7 +184,7 @@ export default class WindowsComponent {
         };
 
         const header = createSection(overlayWindow, 'div', {
-          padding: '20px 24px 12px',
+          padding: '20px 12px 12px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -236,7 +236,7 @@ export default class WindowsComponent {
         });
 
         const progressSection = createSection(overlayWindow, 'div', {
-          padding: '16px 24px',
+          padding: '16px 12px',
           display: 'flex',
           flexDirection: 'column',
           gap: '12px',
@@ -275,7 +275,7 @@ export default class WindowsComponent {
         });
 
         const body = createSection(overlayWindow, 'div', {
-          padding: '0 24px 20px',
+          padding: '0 12px 20px',
           display: 'flex',
           flexDirection: 'column',
           gap: '16px',
@@ -344,7 +344,7 @@ export default class WindowsComponent {
         });
 
         const footer = createSection(overlayWindow, 'div', {
-          padding: '16px 24px 24px',
+          padding: '16px 12px 24px',
           borderTop: '1px solid rgba(255,255,255,0.06)',
           display: 'flex',
           justifyContent: 'space-between',
