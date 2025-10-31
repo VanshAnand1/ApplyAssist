@@ -526,6 +526,16 @@ export default class WindowsComponent {
           input.value = '';
           await refreshAndRender();
         });
+
+        clearButton.addEventListener('click', async (event) => {
+          event.preventDefault();
+          await updateWindow(windowId, (window) => ({
+            ...window,
+            keywords: {},
+            keywordsOrder: [],
+          }));
+          await refreshAndRender();
+        });
       },
       args: [windowID, windowName],
     });
