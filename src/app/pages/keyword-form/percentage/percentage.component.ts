@@ -8,18 +8,15 @@ import { KeywordService } from '../../../features/keywords/state/keyword.service
   standalone: true,
   imports: [FormsModule],
   templateUrl: './percentage.component.html',
-  styleUrls: ['./percentage.component.css'],
 })
 export default class PercentageComponent {
   store = inject(KeywordService);
 
-  percentDoneToColor() {
-    if (this.store.percentDone() >= 85) {
-      return '#bbff80';
-    }
-    if (this.store.percentDone() >= 50) {
-      return '#ffc380';
-    }
-    return '#ff8c80';
-  }
+  percentFillColor = () => {
+    if (this.store.percentDone() >= 85)
+      return 'linear-gradient(120deg,#4ade80,#22c55e)';
+    if (this.store.percentDone() >= 50)
+      return 'linear-gradient(120deg,#facc15,#fb923c)';
+    return 'linear-gradient(120deg,#f97316,#ef4444)';
+  };
 }

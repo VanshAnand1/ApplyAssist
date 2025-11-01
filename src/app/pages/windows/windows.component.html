@@ -1,17 +1,20 @@
 <div class="items-center">
-  <form (ngSubmit)="createNewWindow(pillColor)">
+  <form
+    (ngSubmit)="createNewWindow(pillColor)"
+    class="flex justify-between p-2"
+  >
     <input
       type="text"
       placeholder="Window name..."
       name="window"
       id="window"
       required
-      class="bg-neutral-500 rounded-2xl hover:border-black text-white p-2 text-xl"
+      class="rounded-2xl w-[190px] text-white p-2 text-xl border-[rgba(148_163_184_0.2)] bg-[rgba(148_163_184_0.6)] border"
       [(ngModel)]="windowName"
     />
     <select
       [(ngModel)]="pillColor"
-      class="text-2xl px-3 py-2 rounded-2xl"
+      class="text-2xl cursor-pointer px-3 py-2 rounded-2xl hover:opacity-95"
       [style.backgroundColor]="windowService.colorMap(pillColor)"
     >
       <option value="blue" selected>blue</option>
@@ -25,7 +28,7 @@
     </select>
     <button
       type="submit"
-      class="border-black rounded-2xl bg-amber-300 text-2xl p-2 hover:bg-amber-400"
+      class="border-black cursor-pointer rounded-2xl bg-blue-600 text-white text-2xl p-2 px-4 hover:bg-blue-500"
     >
       Add Window
     </button>
@@ -36,30 +39,43 @@
       *ngFor="let window of windowService.windows(); let i = index"
       class=""
       [ngClass]="{
-        'active-window': window.id === windowService.activeWindowID(),
-        'inactive-window': window.id !== windowService.activeWindowID()
+        'font-bold': window.id === windowService.activeWindowID()
       }"
       [style.backgroundColor]="
         windowService.getBackgroundColor(window.id) || '#222222'
       "
       (click)="onWindowClick(window.id)"
     >
-      <div class="flex items-center justify-between p-1">
-        <button>
-          {{ window.name ? window.name : "unnamed window" }}
-        </button>
-        <div class="flex items-center justify-between gap-2">
+      <div class="flex items-center justify-between gap-2 p-1">
+        <div class="flex-1 break-words whitespace-normal text-left">
+          {{ window.name ? window.name : "new window" }}
+        </div>
+        <div class="flex items-center gap-2 flex-shrink-0">
           <button
-            (click)="deleteWindow(window.id)"
-            class="bg-red-600 text-white rounded-2xl p-2"
+            (click)="deleteWindow(window.id); $event.stopPropagation()"
+            class="bg-red-600 cursor-pointer text-white rounded-2xl p-2"
           >
             Delete
           </button>
           <button
-            (click)="pinWindow(window.id)"
-            class="bg-blue-600 text-white rounded-2xl p-2"
+            (click)="
+              pinWindow(window.id, 'left');
+              $event.stopPropagation();
+              onWindowClick(window.id)
+            "
+            class="bg-blue-600 cursor-pointer text-white rounded-2xl p-2"
           >
-            Pin to tab
+            Pin Left
+          </button>
+          <button
+            (click)="
+              pinWindow(window.id, 'right');
+              $event.stopPropagation();
+              onWindowClick(window.id)
+            "
+            class="bg-blue-600 cursor-pointer text-white rounded-2xl p-2"
+          >
+            Pin Right
           </button>
         </div>
       </div>

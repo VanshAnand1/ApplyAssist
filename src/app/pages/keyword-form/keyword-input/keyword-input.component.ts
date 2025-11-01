@@ -8,7 +8,6 @@ import { KeywordService } from '../../../features/keywords/state/keyword.service
   standalone: true,
   imports: [FormsModule],
   templateUrl: './keyword-input.component.html',
-  styleUrls: ['./keyword-input.component.css'],
 })
 export default class KeywordInputComponent {
   keywordText: string = '';
@@ -26,5 +25,9 @@ export default class KeywordInputComponent {
       id: Date.now().toString(),
     });
     this.keywordText = '';
+  }
+
+  clearAllKeywords() {
+    this.store.clearKeywords();
   }
 }

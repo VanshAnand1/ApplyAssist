@@ -1,6 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { Keyword } from '../keywords/model/keyword.model';
-import { WindowSchema, Window } from '../windows/model/window.model';
+import { WindowSchema } from '../windows/model/window.model';
 
 type WindowMap = Record<string, WindowSchema>;
 type Root = {
@@ -79,7 +79,7 @@ export class StorageService {
   }
 
   async createNewWindow(windowID: string, color: string, name?: string) {
-    if (!name) name = '';
+    if (!name) name = 'new window';
     const root = await this.getRoot();
     if (root.windows[windowID]) return;
 
@@ -96,7 +96,6 @@ export class StorageService {
       windowOrder: [...root.windowOrder, windowID],
       windows: { ...root.windows, [windowID]: newWindow },
     };
-
     await this.setRoot(updatedRoot);
   }
 
@@ -220,31 +219,17 @@ export class StorageService {
     await this.setRoot(updatedRoot);
   }
 
-  async updateWindowColor(windowID: string, color: string) {
+  async updateWindowNameColor(windowID: string, name: string, color: string) {
+    if (name === '') name = 'new window';
     const root = await this.getRoot();
     const window = root.windows[windowID];
     if (!window) return;
 
-    const updatedWindow: WindowSchema = { ...window, color };
+    const updatedWindow: WindowSchema = { ...window, name, color };
     const updatedRoot: Root = {
       ...root,
       windows: { ...root.windows, [windowID]: updatedWindow },
     };
-
-    await this.setRoot(updatedRoot);
-  }
-
-  async updateWindowName(windowID: string, name: string) {
-    const root = await this.getRoot();
-    const window = root.windows[windowID];
-    if (!window) return;
-
-    const updatedWindow: WindowSchema = { ...window, name };
-    const updatedRoot: Root = {
-      ...root,
-      windows: { ...root.windows, [windowID]: updatedWindow },
-    };
-
     await this.setRoot(updatedRoot);
   }
 
@@ -253,6 +238,13 @@ export class StorageService {
     const window = root.windows[windowID];
     if (!window) return undefined;
     return window.color;
+  }
+
+  getWindowName(windowID: string): string | undefined {
+    const root = this.rootSignal();
+    const window = root.windows[windowID];
+    if (!window) return undefined;
+    return window.name;
   }
 
   keywordsFor = (windowId: string | null | undefined) =>

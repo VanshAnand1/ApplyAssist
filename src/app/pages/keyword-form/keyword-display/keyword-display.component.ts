@@ -9,7 +9,6 @@ import { Keyword } from '../../../features/keywords/model/keyword.model';
   standalone: true,
   templateUrl: './keyword-display.component.html',
   imports: [CommonModule],
-  styleUrls: ['./keyword-display.component.css'],
 })
 export default class KeywordDisplayComponent {
   keywordService = inject(KeywordService);

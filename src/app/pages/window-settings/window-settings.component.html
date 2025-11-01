@@ -1,0 +1,37 @@
+<div class="flex flex-col gap-2">
+  <p class="text-white text-2xl font-bold">Window Settings:</p>
+  <form
+    (ngSubmit)="updateWindow(windowName, pillColor)"
+    class="flex justify-between p-2"
+  >
+    <input
+      type="text"
+      placeholder="New window name..."
+      name="window"
+      id="window"
+      required
+      class="rounded-2xl w-[250px] text-white p-2 text-xl border-[rgba(148_163_184_0.2)] bg-[rgba(148_163_184_0.6)] border"
+      [(ngModel)]="windowName"
+    />
+    <select
+      [(ngModel)]="pillColor"
+      class="text-2xl cursor-pointer px-3 py-2 rounded-2xl hover:opacity-95"
+      [style.backgroundColor]="windowService.colorMap(pillColor)"
+    >
+      <option value="blue">blue</option>
+      <option value="red">red</option>
+      <option value="yellow">yellow</option>
+      <option value="orange">orange</option>
+      <option value="purple">purple</option>
+      <option value="pink">pink</option>
+      <option value="green">green</option>
+      <option value="gray">gray</option>
+    </select>
+    <button
+      type="submit"
+      class="border-black cursor-pointer rounded-2xl bg-blue-600 text-white text-2xl p-2 px-4 hover:bg-blue-500"
+    >
+      Update
+    </button>
+  </form>
+</div>
