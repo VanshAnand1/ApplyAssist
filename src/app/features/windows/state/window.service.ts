@@ -1,8 +1,6 @@
-import { Injectable, inject, signal, computed } from '@angular/core';
-import { WindowSchema, Window } from '../model/window.model';
+import { Injectable, inject, computed } from '@angular/core';
 import { StorageService } from '../../storage/storage.service';
 import { KeywordService } from '../../keywords/state/keyword.service';
-import { Keyword } from '../../keywords/model/keyword.model';
 
 @Injectable({ providedIn: 'root' })
 export class WindowService {

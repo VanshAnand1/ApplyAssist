@@ -1,6 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { Keyword } from '../keywords/model/keyword.model';
-import { WindowSchema, Window } from '../windows/model/window.model';
+import { WindowSchema } from '../windows/model/window.model';
 
 type WindowMap = Record<string, WindowSchema>;
 type Root = {

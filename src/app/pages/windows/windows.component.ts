@@ -5,8 +5,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StorageService } from '../../features/storage/storage.service';
 
-import { Keyword } from 'src/app/features/keywords/model/keyword.model';
-
 @Component({
   selector: 'windows-component',
   standalone: true,
