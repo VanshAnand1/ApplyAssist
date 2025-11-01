@@ -304,7 +304,7 @@ export default class WindowsComponent {
           border: 'none',
           padding: '10px 18px',
           borderRadius: '12px',
-          background: '',
+          background: '#155dfc',
           color: '#ffffff',
           fontSize: '14px',
           fontWeight: '600',
@@ -336,7 +336,7 @@ export default class WindowsComponent {
         });
 
         const footer = createSection(overlayWindow, 'div', {
-          padding: '16px 12px 24px',
+          padding: '16px 12px 12px',
           borderTop: '1px solid rgba(255,255,255,0.06)',
           display: 'flex',
           justifyContent: 'space-between',
