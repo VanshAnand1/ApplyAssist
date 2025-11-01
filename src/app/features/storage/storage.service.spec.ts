@@ -214,4 +214,69 @@ describe('StorageService with chrome storage', () => {
     );
     expect(service.rootSignal()).toEqual(storedRoot);
   });
+
+  it('resets invalid stored data back to the default root', async () => {
+    const chromeMock = installChromeMock({
+      getImplementation: async () => ({
+        root: { version: 0 },
+      }),
+    });
+
+    const service = new StorageService();
+    await flushPromises();
+
+    expect(chromeMock.storage.local.set).toHaveBeenCalledWith({
+      root: createRoot(),
+    });
+    expect(service.rootSignal()).toEqual(createRoot());
+  });
+
+  it('getRoot reads from chrome storage', async () => {
+    const storedRoot = createRoot({
+      windowOrder: ['W1'],
+    });
+    const chromeMock = installChromeMock({ storedRoot });
+
+    const service = new StorageService();
+    await flushPromises();
+    chromeMock.storage.local.get.mockClear();
+
+    await expect(service.getRoot()).resolves.toEqual(storedRoot);
+    expect(chromeMock.storage.local.get).toHaveBeenCalledWith({
+      root: createRoot(),
+    });
+  });
+
+  it('setRoot delegates to chrome.storage.local.set', async () => {
+    const chromeMock = installChromeMock();
+    const service = new StorageService();
+    await flushPromises();
+    chromeMock.storage.local.set.mockClear();
+
+    const nextRoot = createRoot({ windowOrder: ['W1'] });
+    await service.setRoot(nextRoot);
+
+    expect(chromeMock.storage.local.set).toHaveBeenCalledWith({
+      root: nextRoot,
+    });
+    expect(service.rootSignal()).not.toEqual(nextRoot);
+  });
+
+  it('reacts to chrome.storage.onChanged updates', async () => {
+    const chromeMock = installChromeMock();
+    const service = new StorageService();
+    await flushPromises();
+
+    const updatedRoot = createRoot({
+      windowOrder: ['W1'],
+      windows: {
+        alpha: createWindow({ id: 'W1', name: 'Pinned' }),
+      },
+    });
+    chromeMock.__emitChange(updatedRoot);
+    expect(service.rootSignal()).toEqual(updatedRoot);
+
+    chromeMock.__emitChange(null);
+    expect(service.rootSignal()).toEqual(createRoot());
+  });
 });
