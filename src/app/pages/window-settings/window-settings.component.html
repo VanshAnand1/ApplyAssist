@@ -15,7 +15,7 @@
     />
     <select
       [(ngModel)]="pillColor"
-      class="text-2xl px-3 py-2 rounded-2xl"
+      class="text-2xl px-3 py-2 rounded-2xl hover:opacity-95"
       [style.backgroundColor]="windowService.colorMap(pillColor)"
     >
       <option value="blue">blue</option>
@@ -29,7 +29,7 @@
     </select>
     <button
       type="submit"
-      class="border-black rounded-2xl bg-[linear-gradient(120deg,#38bdf8,#86efac)] text-2xl p-2 px-4 transition-all duration-300 hover:bg-[linear-gradient(120deg,#7dd3fc,#bbf7d0)] hover:shadow-lg hover:shadow-sky-200/40"
+      class="border-black rounded-2xl bg-blue-600 text-white text-2xl p-2 px-4 hover:bg-blue-500"
     >
       Update
     </button>
