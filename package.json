@@ -10,6 +10,7 @@
     "dev": "vite",
     "start": "npm run dev",
     "build": "vite build",
+    "postbuild": "node tools/extract-ng-contract.js",
     "watch": "vite build --watch",
     "test": "vitest",
     "preview": "node dist/analog/server/index.mjs"
