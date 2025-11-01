@@ -14,7 +14,7 @@
     />
     <select
       [(ngModel)]="pillColor"
-      class="text-2xl px-3 py-2 rounded-2xl hover:opacity-95"
+      class="text-2xl cursor-pointer px-3 py-2 rounded-2xl hover:opacity-95"
       [style.backgroundColor]="windowService.colorMap(pillColor)"
     >
       <option value="blue" selected>blue</option>
@@ -28,7 +28,7 @@
     </select>
     <button
       type="submit"
-      class="border-black rounded-2xl bg-blue-600 text-white text-2xl p-2 px-4 hover:bg-blue-500"
+      class="border-black cursor-pointer rounded-2xl bg-blue-600 text-white text-2xl p-2 px-4 hover:bg-blue-500"
     >
       Add Window
     </button>
@@ -53,7 +53,7 @@
         <div class="flex items-center gap-2 flex-shrink-0">
           <button
             (click)="deleteWindow(window.id); $event.stopPropagation()"
-            class="bg-red-600 text-white rounded-2xl p-2"
+            class="bg-red-600 cursor-pointer text-white rounded-2xl p-2"
           >
             Delete
           </button>
@@ -63,7 +63,7 @@
               $event.stopPropagation();
               onWindowClick(window.id)
             "
-            class="bg-blue-600 text-white rounded-2xl p-2"
+            class="bg-blue-600 cursor-pointer text-white rounded-2xl p-2"
           >
             Pin Left
           </button>
@@ -73,7 +73,7 @@
               $event.stopPropagation();
               onWindowClick(window.id)
             "
-            class="bg-blue-600 text-white rounded-2xl p-2"
+            class="bg-blue-600 cursor-pointer text-white rounded-2xl p-2"
           >
             Pin Right
           </button>
