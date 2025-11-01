@@ -20,3 +20,9 @@ const createWindow = (overrides: Partial<WindowSchema>): WindowSchema => ({
   keywordsOrder: [],
   ...overrides,
 });
+
+const flushPromises = async (count = 2) => {
+  for (let index = 0; index < count; index++) {
+    await Promise.resolve();
+  }
+};
