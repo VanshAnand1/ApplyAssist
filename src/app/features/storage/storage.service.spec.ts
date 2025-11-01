@@ -26,3 +26,29 @@ const flushPromises = async (count = 2) => {
     await Promise.resolve();
   }
 };
+
+type OnChangedListener = (
+  changes: Record<
+    string,
+    {
+      oldValue?: unknown;
+      newValue?: unknown;
+    }
+  >,
+  areaName: string
+) => void;
+
+type ChromeMock = {
+  storage: {
+    local: {
+      get: ReturnType<typeof vi.fn>;
+      set: ReturnType<typeof vi.fn>;
+    };
+    onChanged: {
+      addListener: ReturnType<typeof vi.fn>;
+      removeListener: ReturnType<typeof vi.fn>;
+    };
+  };
+  __emitChange: (newValue: Root | null | undefined) => void;
+  __getStoredRoot: () => Root | null | undefined;
+};
