@@ -15,7 +15,8 @@ html,
 body {
   display: block;
   width: 500px;
-  height: 600px;
+  height: fit-content;
+  max-height: 600px;
   margin: 0;
   padding: 0;
   overflow: auto;
