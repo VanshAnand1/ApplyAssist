@@ -9,7 +9,9 @@ import WindowSettingsComponent from './window-settings/window-settings.component
   imports: [WindowsComponent, KeywordFormComponent, WindowSettingsComponent],
   template: `
     <windows-component></windows-component>
+    <div class="border-t border-white/10"></div>
     <keyword-form-component></keyword-form-component>
+    <div class="border-t border-white/10"></div>
     <window-settings-component></window-settings-component>
   `,
 })
