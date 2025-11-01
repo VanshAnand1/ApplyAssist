@@ -189,3 +189,29 @@ describe('StorageService without chrome.storage', () => {
     expect(service.windows()).toEqual([window2, window1]);
   });
 });
+
+describe('StorageService with chrome storage', () => {
+  afterEach(() => {
+    delete (globalThis as { chrome?: unknown }).chrome;
+    vi.restoreAllMocks();
+  });
+
+  it('initializes from chrome storage and registers listeners', async () => {
+    const storedRoot = createRoot({
+      windowOrder: ['W1'],
+      windows: {
+        alpha: createWindow({ id: 'W1', color: 'red' }),
+      },
+    });
+    const chromeMock = installChromeMock({ storedRoot });
+
+    const service = new StorageService();
+    await flushPromises();
+
+    expect(chromeMock.storage.local.get).toHaveBeenCalled();
+    expect(chromeMock.storage.onChanged.addListener).toHaveBeenCalledWith(
+      expect.any(Function)
+    );
+    expect(service.rootSignal()).toEqual(storedRoot);
+  });
+});
