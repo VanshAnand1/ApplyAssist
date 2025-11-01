@@ -6,19 +6,16 @@ import { Keyword } from '../../keywords/model/keyword.model';
 
 @Injectable({ providedIn: 'root' })
 export class WindowService {
-  windowLimit: number = 5;
   storage = inject(StorageService);
   keywordService = inject(KeywordService);
 
   windows = computed(() => this.storage.windows());
   activeWindowID = computed(() => this.keywordService.getActiveWindowID());
 
-  createNewWindow(color: string, name?: string) {
-    if (this.reachedWindowLimit()) {
-      console.log('window limit reached');
-      return;
-    }
-    this.storage.createNewWindow(Date.now().toString(), color, name);
+  async createNewWindow(color: string, name?: string) {
+    const windowID = Date.now().toString();
+    await this.storage.createNewWindow(windowID, color, name);
+    await this.selectWindow(windowID);
   }
 
   async selectWindow(windowID: string | null) {
@@ -54,9 +51,5 @@ export class WindowService {
 
   updateWindowNameColor(windowID: string, name: string, color: string) {
     this.storage.updateWindowNameColor(windowID, name, color);
-  }
-
-  reachedWindowLimit() {
-    return this.windows.length >= this.windowLimit;
   }
 }

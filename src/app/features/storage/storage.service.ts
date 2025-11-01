@@ -96,7 +96,6 @@ export class StorageService {
       windowOrder: [...root.windowOrder, windowID],
       windows: { ...root.windows, [windowID]: newWindow },
     };
-
     await this.setRoot(updatedRoot);
   }
 
