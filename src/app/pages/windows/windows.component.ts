@@ -209,7 +209,7 @@ export default class WindowsComponent {
           fontSize: '13px',
           color: 'rgba(241,245,249,0.6)',
         });
-        subtitle.textContent = 'Application checklist';
+        subtitle.textContent = 'ApplyAssist';
 
         const closeButton = createSection(header, 'button', {
           border: 'none',
@@ -241,14 +241,6 @@ export default class WindowsComponent {
           flexDirection: 'column',
           gap: '12px',
         });
-
-        const progressLabel = createSection(progressSection, 'div', {
-          fontSize: '13px',
-          color: 'rgba(148,163,184,0.9)',
-          textTransform: 'uppercase',
-          letterSpacing: '0.08em',
-        });
-        progressLabel.textContent = 'Completion';
 
         const progressValue = createSection(progressSection, 'div', {
           fontSize: '28px',
@@ -312,8 +304,8 @@ export default class WindowsComponent {
           border: 'none',
           padding: '10px 18px',
           borderRadius: '12px',
-          background: 'linear-gradient(120deg,#0ea5e9,#22c55e)',
-          color: '#f8fafc',
+          background: '',
+          color: '#ffffff',
           fontSize: '14px',
           fontWeight: '600',
           cursor: 'pointer',
