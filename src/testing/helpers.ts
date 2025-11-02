@@ -49,13 +49,13 @@ export const createKeywordServiceMock = (): KeywordServiceMock => ({
 });
 
 export const createWindowServiceMock = (): WindowServiceMock => ({
-  createNewWindow: vi.fn(() => null),
-  selectWindow: vi.fn(() => null),
-  getBackgroundColor: vi.fn(() => Promise.resolve()),
-  getWindowName: vi.fn(() => Promise.resolve()),
-  getWindowColor: vi.fn(() => Promise.resolve()),
-  removeWindow: vi.fn(() => null),
-  updateWindowNameColor: vi.fn(() => null),
+  createNewWindow: vi.fn(() => Promise.resolve()),
+  selectWindow: vi.fn(() => Promise.resolve()),
+  getBackgroundColor: vi.fn(),
+  getWindowName: vi.fn(),
+  getWindowColor: vi.fn(),
+  removeWindow: vi.fn(),
+  updateWindowNameColor: vi.fn(),
 });
 
 export const installChromeMock = (
