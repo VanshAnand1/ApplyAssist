@@ -40,3 +40,13 @@ export type KeywordServiceMock = {
   getActiveWindowID: ReturnType<typeof vi.fn>;
   setActiveWindowID: ReturnType<typeof vi.fn>;
 };
+
+export type WindowServiceMock = {
+  createNewWindow: ReturnType<typeof vi.fn>;
+  selectWindow: ReturnType<typeof vi.fn>;
+  getBackgroundColor: ReturnType<typeof vi.fn>;
+  getWindowName: ReturnType<typeof vi.fn>;
+  getWindowColor: ReturnType<typeof vi.fn>;
+  removeWindow: ReturnType<typeof vi.fn>;
+  updateWindowNameColor: ReturnType<typeof vi.fn>;
+};

@@ -6,6 +6,7 @@ import {
   ChromeMock,
   StorageServiceMock,
   KeywordServiceMock,
+  WindowServiceMock,
 } from './types';
 
 export const createRoot = (overrides: Partial<Root> = {}): Root => ({
@@ -45,6 +46,16 @@ export const createStorageServiceMock = (): StorageServiceMock => ({
 export const createKeywordServiceMock = (): KeywordServiceMock => ({
   getActiveWindowID: vi.fn(() => null),
   setActiveWindowID: vi.fn(() => Promise.resolve()),
+});
+
+export const createWindowServiceMock = (): WindowServiceMock => ({
+  createNewWindow: vi.fn(() => null),
+  selectWindow: vi.fn(() => null),
+  getBackgroundColor: vi.fn(() => Promise.resolve()),
+  getWindowName: vi.fn(() => Promise.resolve()),
+  getWindowColor: vi.fn(() => Promise.resolve()),
+  removeWindow: vi.fn(() => null),
+  updateWindowNameColor: vi.fn(() => null),
 });
 
 export const installChromeMock = (
