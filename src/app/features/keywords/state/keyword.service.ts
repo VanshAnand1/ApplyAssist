@@ -74,7 +74,6 @@ export class KeywordService {
     this.storage.toggleKeywordStatus(id, keyword.id);
   }
 
-  count = computed(() => this.keywords().length);
   countDone = computed(() => {
     const arr = this.keywords();
     const done = arr.filter((k) => k.done).length;
