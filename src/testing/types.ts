@@ -34,19 +34,17 @@ export type StorageServiceMock = {
   deleteWindow: ReturnType<typeof vi.fn>;
   updateWindowNameColor: ReturnType<typeof vi.fn>;
   windows: ReturnType<typeof vi.fn>;
+  getLastActiveWindowID: ReturnType<typeof vi.fn>;
+  getRoot: ReturnType<typeof vi.fn>;
+  setLastActiveWindowID: ReturnType<typeof vi.fn>;
+  keywordsFor: ReturnType<typeof vi.fn>;
+  insertKeyword: ReturnType<typeof vi.fn>;
+  deleteKeyword: ReturnType<typeof vi.fn>;
+  clearAllKeywords: ReturnType<typeof vi.fn>;
+  toggleKeywordStatus: ReturnType<typeof vi.fn>;
 };
 
 export type KeywordServiceMock = {
   getActiveWindowID: ReturnType<typeof vi.fn>;
   setActiveWindowID: ReturnType<typeof vi.fn>;
-};
-
-export type WindowServiceMock = {
-  createNewWindow: ReturnType<typeof vi.fn>;
-  selectWindow: ReturnType<typeof vi.fn>;
-  getBackgroundColor: ReturnType<typeof vi.fn>;
-  getWindowName: ReturnType<typeof vi.fn>;
-  getWindowColor: ReturnType<typeof vi.fn>;
-  removeWindow: ReturnType<typeof vi.fn>;
-  updateWindowNameColor: ReturnType<typeof vi.fn>;
 };
