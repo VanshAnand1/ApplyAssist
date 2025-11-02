@@ -1,7 +1,12 @@
 import { vi } from 'vitest';
 import { WindowSchema } from '../app/features/windows/model/window.model';
 import { Root } from '../app/features/storage/storage.service';
-import { OnChangedListener, ChromeMock } from './types';
+import {
+  OnChangedListener,
+  ChromeMock,
+  StorageServiceMock,
+  KeywordServiceMock,
+} from './types';
 
 export const createRoot = (overrides: Partial<Root> = {}): Root => ({
   version: 1,
@@ -27,6 +32,20 @@ export const flushPromises = async (count = 2) => {
     await Promise.resolve();
   }
 };
+
+export const createStorageServiceMock = (): StorageServiceMock => ({
+  createNewWindow: vi.fn(() => Promise.resolve()),
+  getBackgroundColor: vi.fn(),
+  getWindowName: vi.fn(),
+  deleteWindow: vi.fn(),
+  updateWindowNameColor: vi.fn(),
+  windows: vi.fn(() => []),
+});
+
+export const createKeywordServiceMock = (): KeywordServiceMock => ({
+  getActiveWindowID: vi.fn(() => null),
+  setActiveWindowID: vi.fn(() => Promise.resolve()),
+});
 
 export const installChromeMock = (
   options: {

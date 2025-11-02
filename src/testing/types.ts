@@ -26,3 +26,17 @@ export type ChromeMock = {
   __emitChange: (newValue: Root | null | undefined) => void;
   __getStoredRoot: () => Root | null | undefined;
 };
+
+export type StorageServiceMock = {
+  createNewWindow: ReturnType<typeof vi.fn>;
+  getBackgroundColor: ReturnType<typeof vi.fn>;
+  getWindowName: ReturnType<typeof vi.fn>;
+  deleteWindow: ReturnType<typeof vi.fn>;
+  updateWindowNameColor: ReturnType<typeof vi.fn>;
+  windows: ReturnType<typeof vi.fn>;
+};
+
+export type KeywordServiceMock = {
+  getActiveWindowID: ReturnType<typeof vi.fn>;
+  setActiveWindowID: ReturnType<typeof vi.fn>;
+};
