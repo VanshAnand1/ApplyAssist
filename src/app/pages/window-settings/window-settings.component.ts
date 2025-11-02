@@ -14,6 +14,7 @@ export default class WindowSettingsComponent {
   windowService = inject(WindowService);
   windowName: string = '';
   pillColor: string = 'blue';
+  showSettings: boolean = false;
 
   constructor() {
     effect(() => {
@@ -41,5 +42,9 @@ export default class WindowSettingsComponent {
     if (!windowID) return;
 
     this.windowService.updateWindowNameColor(windowID, newName, newColor);
+  }
+
+  toggleSettings() {
+    this.showSettings = !this.showSettings;
   }
 }
