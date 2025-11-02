@@ -21,5 +21,20 @@ describe('WindowService', () => {
   beforeEach(() => {
     storage = createStorageServiceMock();
     keywordService = createKeywordServiceMock();
+
+    TestBed.configureTestingModule({
+      providers: [
+        WindowService,
+        { provide: StorageService, useValue: storage },
+        { provide: KeywordService, useValue: keywordService },
+      ],
+    });
+
+    service = TestBed.inject(WindowService);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    TestBed.resetTestingModule();
   });
 });
