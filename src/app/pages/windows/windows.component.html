@@ -41,9 +41,7 @@
       [ngClass]="{
         'font-bold': window.id === windowService.activeWindowID()
       }"
-      [style.backgroundColor]="
-        windowService.getBackgroundColor(window.id) || '#222222'
-      "
+      [style.backgroundColor]="windowService.getBackgroundColor(window.id)"
       (click)="onWindowClick(window.id)"
     >
       <div class="flex items-center justify-between gap-2 p-1">
