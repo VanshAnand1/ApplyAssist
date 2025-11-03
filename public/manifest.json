@@ -8,5 +8,8 @@
     "default_width": 400,
     "default_height": 600
   },
+  "icons": {
+    "128": "ApplyAssistLogo128x.png"
+  },
   "permissions": ["storage", "activeTab", "scripting", "tabs"]
 }
