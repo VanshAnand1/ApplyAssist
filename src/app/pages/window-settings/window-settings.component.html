@@ -1,0 +1,68 @@
+<div class="py-2">
+  <div>
+    <form>
+      <button
+        (click)="toggleSettings()"
+        class="text-white cursor-pointer text-lg bg-blue-600 hover:bg-blue-500 rounded-2xl px-4 py-2"
+      >
+        {{
+          this.showSettings ? "Hide Window Settings" : "Show Window Settings"
+        }}
+      </button>
+    </form>
+  </div>
+  <div *ngIf="this.showSettings" class="flex flex-col gap-2 py-2">
+    <form
+      (ngSubmit)="updateWindow(windowName, pillColor)"
+      class="flex justify-between p-2 flex-col gap-2"
+    >
+      <div class="flex items-center gap-6">
+        <label
+          htmlFor="window"
+          class="font-bold whitespace-nowrap text-white text-xl"
+          >Window Name:
+        </label>
+        <input
+          type="text"
+          placeholder="New window name..."
+          name="window"
+          id="window"
+          required
+          class="rounded-2xl flex-1 min-w-0 text-white p-2 text-xl border-[rgba(148_163_184_0.2)] bg-[rgba(148_163_184_0.6)] border"
+          [(ngModel)]="windowName"
+        />
+      </div>
+      <div class="flex items-center gap-6">
+        <label
+          htmlFor="pillColor"
+          class="font-bold whitespace-nowrap text-white text-xl"
+          >Window Color:&nbsp;
+        </label>
+
+        <select
+          [(ngModel)]="pillColor"
+          id="pillColor"
+          class="text-2xl flex-1 min-w-0 cursor-pointer px-3 py-2 rounded-2xl hover:opacity-95"
+          [style.backgroundColor]="windowService.colorMap(pillColor)"
+        >
+          <option value="blue">blue</option>
+          <option value="red">red</option>
+          <option value="yellow">yellow</option>
+          <option value="orange">orange</option>
+          <option value="purple">purple</option>
+          <option value="pink">pink</option>
+          <option value="green">green</option>
+          <option value="gray">gray</option>
+        </select>
+      </div>
+      <div>
+        <button
+          type="submit"
+          class="border-black cursor-pointer rounded-2xl bg-blue-600 text-white text-xl p-2 px-4 hover:bg-blue-500"
+        >
+          Update Window Name and Color
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,8 +1,28 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --header-size: 22px;
+  --text-size: 16px;
+  --button-background-color: #3d314a;
+  --button-text-color: #ab8476;
+  --text-color: #000000;
+  --background-color: #d4c2fc;
+
+  --tea-green: #dcedb9;
+}
+
 html,
 body {
   display: block;
-  height: 100%;
+  width: 500px;
+  height: fit-content;
+  max-height: 600px;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  background: linear-gradient(
+    160deg,
+    rgba(8, 27, 41, 0.95),
+    rgba(11, 46, 73, 0.95)
+  );
 }

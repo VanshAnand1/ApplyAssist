@@ -1,13 +1,18 @@
 import { Component } from '@angular/core';
 
-import { AnalogWelcome } from './analog-welcome';
+import KeywordFormComponent from './keyword-form/keyword-form.component';
+import WindowsComponent from './windows/windows.component';
+import WindowSettingsComponent from './window-settings/window-settings.component';
 
 @Component({
   selector: 'app-home',
-  imports: [AnalogWelcome],
+  imports: [WindowsComponent, KeywordFormComponent, WindowSettingsComponent],
   template: `
-     <app-analog-welcome/>
+    <windows-component></windows-component>
+    <div class="border-t border-white/10"></div>
+    <keyword-form-component></keyword-form-component>
+    <div class="border-t border-white/10"></div>
+    <window-settings-component></window-settings-component>
   `,
 })
-export default class HomeComponent {
-}
+export default class HomeComponent {}

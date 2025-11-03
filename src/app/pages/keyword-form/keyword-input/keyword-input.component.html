@@ -1,0 +1,26 @@
+<div class="flex p-1 text-white">
+  <form (ngSubmit)="onAddKeyword()" class="flex w-full gap-2">
+    <input
+      type="text"
+      placeholder="Add a Keyword..."
+      id="keyword"
+      name="keyword"
+      [(ngModel)]="keywordText"
+      class="rounded-2xl text-xl w-full flex-1 text-white p-2 border-[rgba(148_163_184_0.2)] bg-[rgba(148_163_184_0.6)] border"
+      required
+    />
+    <button
+      type="submit"
+      class="text-xl cursor-pointer rounded-2xl bg-[rgba(72,192,126,0.42)] text-[#6ceaa3] p-2 px-4"
+    >
+      Add
+    </button>
+    <button
+      type="button"
+      (click)="clearAllKeywords()"
+      class="text-xl cursor-pointer rounded-2xl bg-[rgba(239,68,68,0.42)] text-[#fca5a5] p-2 px-4"
+    >
+      Clear All
+    </button>
+  </form>
+</div>

@@ -1,0 +1,13 @@
+<div *ngIf="lastWindowExists(); else noTabSelected">
+  <p class="items-center text-xl text-white p-2 font-bold">
+    Active Window: {{ this.activeWindowName() }}
+  </p>
+  <percentage-component></percentage-component>
+  <keyword-input></keyword-input>
+  <keyword-display></keyword-display>
+</div>
+<ng-template #noTabSelected>
+  <div class="items-center text-xl text-white">
+    create a new window or select an existing one above
+  </div>
+</ng-template>
